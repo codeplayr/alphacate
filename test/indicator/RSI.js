@@ -60,5 +60,21 @@ describe('RSI', function(){
 		assert.closeTo( last_item.rsi, 58, 1 );
 	});
 
+	it('should fail', function(){
+		var rsi = new RSI();
+
+		arr.forEach( ( el ) => {
+			rsi.add( el[0], el[1] );
+		});
+
+		// timeperiod above array length
+		var result = rsi.calculate( arr.length - 1, arr.length );
+		assert.isTrue( result.error );
+
+		// focusIndex above array length
+		var result = rsi.calculate( arr.length, 14  );
+		assert.isTrue( result.error );
+	});
+
 
 });
