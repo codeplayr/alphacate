@@ -1,1 +1,1 @@
-require('./test/indicator/RSI');
+require('./test/indicator/relative-strength-index');

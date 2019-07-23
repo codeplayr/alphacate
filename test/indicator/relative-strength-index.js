@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var RSI = require('./../../lib/indicator/RSI');
+var RSI = require('./../../lib/indicator/relative-strength-index');
 
 describe('RSI', function(){
 
