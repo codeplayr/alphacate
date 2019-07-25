@@ -64,6 +64,43 @@ describe('EMA', function(){
 		]
 	};
 
+	var arr_2 = {
+		items: [
+			22.81,
+			23.09,
+			22.91,
+			23.23,
+			22.83,
+			23.05,
+			23.02,
+			23.29,
+			23.41,
+			23.49,
+			24.60,
+			24.63,
+			24.51,
+			23.73,
+		],
+		range: 9,
+		results: [
+			22.81,
+			22.87,
+			22.87,
+			22.95,
+			22.92,
+			22.95,
+			22.96,
+			23.03,
+			23.10,
+			23.18,
+			23.47,
+			23.70,
+			23.86,
+			23.83,
+		]
+	};
+
+
 	it('should calculate correctly and return results', function(){
 		var ema = new EMA();
 		arr.items.forEach( ( item ) => ema.add( item ));
@@ -75,5 +112,18 @@ describe('EMA', function(){
 		results.forEach( (item, idx) => assert.closeTo( item.ema, arr.results[ idx ], 0.02 ));
 	});
 
+	it('should calculate correctly when started with first item and return results', function(){
+		var ema = new EMA( {range: arr_2.range, startWithFirst: true } );
+		arr_2.items.forEach( ( item ) => {
+			ema.add( item );
+		});
+
+		var results = ema.calculate();
+		assert.isArray( results );
+		assert.isTrue( arr_2.items.length == arr_2.results.length );
+		results.forEach( (item, idx) => {
+			assert.closeTo( item.ema, arr_2.results[ idx ], 0.02 );
+		});
+	});
 
 });
