@@ -1,11 +1,11 @@
 'use strict';
 
-var assert = require('chai').assert;
-var EMA = require('./../../lib/indicator/exponential-moving-average');
+let assert = require('chai').assert;
+let EMA = require('./../../lib/indicator/exponential-moving-average');
 
 describe('EMA', function(){
 
-	var arr = {
+	let arr = {
 		items: [
 			22.27,
 			22.19,
@@ -64,7 +64,7 @@ describe('EMA', function(){
 		]
 	};
 
-	var arr_2 = {
+	let arr_2 = {
 		items: [
 			22.81,
 			23.09,
@@ -100,7 +100,7 @@ describe('EMA', function(){
 		]
 	};
 
-	var arr_3 = {
+	let arr_3 = {
 		items: [
 			22.81,
 			23.09,
@@ -143,23 +143,18 @@ describe('EMA', function(){
 	};
 
 	it('should calculate correctly and return results', function(){
-		var ema = new EMA();
-		arr.items.forEach( ( item ) => ema.add( item ));
-
-		var results = ema.calculate( {range: arr.range} );
-
+		let ema = new EMA( {range: arr.range} );
+		ema.setValues( arr.items );
+		let results = ema.calculate();
 		assert.isArray( results );
 		assert.isTrue( arr.items.length - (arr.range - 1) == results.length );
 		results.forEach( (item, idx) => assert.closeTo( item.ema, arr.results[ idx ], 0.02 ));
 	});
 
 	it('should calculate correctly when started with first item and return results', function(){
-		var ema = new EMA( {range: arr_2.range, startWithFirst: true } );
-		arr_2.items.forEach( ( item ) => {
-			ema.add( item );
-		});
-
-		var results = ema.calculate();
+		let ema = new EMA( {range: arr_2.range, startWithFirst: true } );
+		ema.setValues( arr_2.items );
+		let results = ema.calculate();
 		assert.isArray( results );
 		assert.isTrue( arr_2.items.length == arr_2.results.length );
 		results.forEach( (item, idx) => {
@@ -168,15 +163,11 @@ describe('EMA', function(){
 	});
 
 	it('should calculate correctly with range and return results', function(){
-		var ema = new EMA( {range: arr_3.range } );
-		arr_3.items.forEach( ( item ) => {
-			ema.add( item );
-		});
-
-		var results = ema.calculate();
+		let ema = new EMA( {range: arr_3.range } );
+		ema.setValues( arr_3.items );
+		let results = ema.calculate();
 		assert.isArray( results );
 		assert.isTrue( arr_3.items.length - (arr_3.range - 1) == arr_3.results.length );
-
 		results.forEach( (item, idx) => {
 			assert.closeTo( item.ema, arr_3.results[ idx ], 0.05 );
 		});
