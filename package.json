@@ -8,14 +8,14 @@
 		"coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --include-all-sources  -- ./tests.js --reporter spec"
 	},
 	"engines": {
-   		"node": ">=6"
- 	},
+		"node": ">=6"
+	},
 	"dependencies": {
 		"underscore": "1.8.x"
 	},
 	"devDependencies": {
 		"mocha": "2.5.x",
-		"chai": "3.5.x",
+		"chai": "4.0.x",
 		"chai-fs": "1.0.x",
 		"istanbul": "0.4.x"
 	},
