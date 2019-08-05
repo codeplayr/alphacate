@@ -1,7 +1,7 @@
 'use strict';
 
-let assert = require('chai').assert;
-let EMA = require('./../../lib/indicator/exponential-moving-average');
+const assert = require('chai').assert;
+const EMA = require('./../../lib/indicator/exponential-moving-average');
 
 describe('EMA', function(){
 
@@ -142,7 +142,7 @@ describe('EMA', function(){
 		]
 	};
 
-	it('should calculate correctly and return results', function(){
+	it('should calculate correctly and return results', () => {
 		let ema = new EMA( {range: arr.range} );
 		ema.setValues( arr.items );
 		let results = ema.calculate();
@@ -151,7 +151,7 @@ describe('EMA', function(){
 		results.forEach( (item, idx) => assert.closeTo( item.ema, arr.results[ idx ], 0.02 ));
 	});
 
-	it('should calculate correctly when started with first item and return results', function(){
+	it('should calculate correctly when started with first item and return results', () => {
 		let ema = new EMA( {range: arr_2.range, startWithFirst: true } );
 		ema.setValues( arr_2.items );
 		let results = ema.calculate();
@@ -162,7 +162,7 @@ describe('EMA', function(){
 		});
 	});
 
-	it('should calculate correctly with range and return results', function(){
+	it('should calculate correctly with range and return results', () => {
 		let ema = new EMA( {range: arr_3.range } );
 		ema.setValues( arr_3.items );
 		let results = ema.calculate();
