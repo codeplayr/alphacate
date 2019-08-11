@@ -26,4 +26,15 @@ describe('SMA', function(){
 		].forEach( ( item ) => runTest( item.t, item.v, item.e ) );
 	});
 
+	it('should calculate correctly with starIndex and endIndex options and return result', () => {
+		let opts = { timePeriods: 4, startIndex: 1, endIndex: data.length - 2 };
+		let sma = new SMA( opts );
+		sma.setValues( data );
+		let result = sma.calculate();
+
+		assert.isArray( result )
+		assert.isTrue( (opts.endIndex + 1 - opts.startIndex + 1) - opts.timePeriods == result.length );
+		assert.sameOrderedMembers( result, [3.5, 4.5, 5.5, 6.5] );
+	});
+	
 });
