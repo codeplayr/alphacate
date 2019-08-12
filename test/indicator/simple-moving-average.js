@@ -36,5 +36,28 @@ describe('SMA', function(){
 		assert.isTrue( (opts.endIndex + 1 - opts.startIndex + 1) - opts.timePeriods == result.length );
 		assert.sameOrderedMembers( result, [3.5, 4.5, 5.5, 6.5] );
 	});
+
+	it('should throw error on invalid values', () => {
+		assert.throws( () => SMA(), Error );
+		assert.throws( () => (new SMA()).calculate(), Error );
+		assert.throws( () => (new SMA()).setValues(1), Error );
+		assert.throws( () => (new SMA()).setValues('foo'), Error );
+
+		let sma = new SMA();
+		sma.setValues(data);
+		sma.clear();
+		assert.throws( () => sma.calculate(), Error );
+	});	
+		
+	it('should throw error on invalid timePeriods', () => {
+		function runTest( timePeriods ){
+			let sma = new SMA( { timePeriods } );
+			sma.setValues( data );
+			assert.throws( () => sma.calculate(), Error );
+		}
+
+		let tp = [ data.length + 100, -100, 0, 1 ];
+		tp.forEach( ( val ) => runTest( val ) );
+	});
 	
 });
