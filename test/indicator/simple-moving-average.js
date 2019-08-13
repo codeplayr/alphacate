@@ -59,5 +59,24 @@ describe('SMA', function(){
 		let tp = [ data.length + 100, -100, 0, 1 ];
 		tp.forEach( ( val ) => runTest( val ) );
 	});
-	
+
+	it('should throw error on invalid startIndex and endIndex ', () => {
+		function runTest( startIndex, endIndex ){
+			let sma = new SMA( {startIndex, endIndex} );
+			sma.setValues(data);
+			assert.throws( () => sma.calculate(), Error );
+		};
+
+		[	[10,5],
+			[5,5],
+			[data.length, data.length + 1],
+			[-10, 2],
+			[0, -2],
+		].forEach( item => runTest( item[0], item[1] ) );
+
+		let sma = new SMA( {endIndex: data.length + 1} );
+		sma.setValues(data);
+		assert.throws( () => sma.calculate(), Error );
+	});
+
 });
