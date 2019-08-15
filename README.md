@@ -5,7 +5,7 @@
 A little node.js toolkit with various indicators and oscillators for the technical stock analysis
 
 
-** Important Notes **
+**Important Notes**
 
 This package is currently in an early state of development and **not** production ready.
 
