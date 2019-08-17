@@ -33,4 +33,22 @@ describe( 'Math', () =>{
 		assert.isTrue( MathUtil.variance( items_2, 'population' ).toFixed(2) == 2.22);
 	});
 
+	it('should calculate standard deviation', () => {
+		let items_1 = [1, 2, 3, 4, 5];
+		let items_2 = [1, 2, 3, 4, 5, 1];
+
+		//Sample Mode
+		assert.isTrue( MathUtil.standardDeviation( items_1 ).toFixed(2) == 1.58 );
+		assert.isTrue( MathUtil.standardDeviation( items_2 ).toFixed(2) == 1.63 );
+
+		//Population Mode
+		assert.isTrue( MathUtil.standardDeviation( items_1, 'population' ).toFixed(2) == 1.41 );
+		assert.isTrue( MathUtil.standardDeviation( items_2, 'population' ).toFixed(2) == 1.49 );
+	});
+	
+	it('should calculate the mean deviation', () => {
+		let items = [3, 6, 6, 7, 8, 11, 15, 16];
+		assert.isTrue( MathUtil.meanDeviation( items ) == 3.75 );
+	});
+	
 });
