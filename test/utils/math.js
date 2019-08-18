@@ -50,5 +50,17 @@ describe( 'Math', () =>{
 		let items = [3, 6, 6, 7, 8, 11, 15, 16];
 		assert.isTrue( MathUtil.meanDeviation( items ) == 3.75 );
 	});
+
+	it('should calculate range', () => {
+		let items = [8, 11, 5, 9, 7, 6, 3616];
+		assert.isTrue( MathUtil.range( items ) == 3611 );
+	});
+
+	it('should calculate mode', () =>{
+		let items = [2,10,21,23,23,38,38,4];
+		let result = MathUtil.modes( items );
+		assert.isTrue( result.length == 2 );
+		assert.isTrue( result.indexOf(23) >=0 && result.indexOf(38) >= 0 );
+	});
 	
 });
