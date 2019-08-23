@@ -16,7 +16,7 @@ This package is currently in an early state of development and **not** productio
 
 ```js
 //retrieve indicator module via accessor
-const LWMA = require('./index').LWMA;       
+const LWMA = require('alphacate').LWMA;       
 
 //pass optional configuration into constructor
 let lwma = new LWMA( {periods: 4} );        
