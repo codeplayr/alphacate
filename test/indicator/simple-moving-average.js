@@ -9,15 +9,22 @@ describe('SMA', function(){
 	let data = [1,2,3,4,5,6,7,8,9];
 
 	it('should calculate correctly and return result', () => {
-		function runTest( timePeriods, values, expectedResult ){
-			let opts = { timePeriods };
+		function runTest( periods, values, expectedResult ){
+			let opts = { periods };
 			let sma = new SMA( opts );
 			sma.setValues( values );
-			let result = sma.calculate()
+			let results = sma.calculate();
 
-			assert.isArray( result )
-			assert.isTrue( values.length - opts.timePeriods + 1  == result.length );
-			assert.sameOrderedMembers( result, expectedResult );
+			assert.isArray( results )
+			assert.isTrue( values.length - opts.periods + 1  == results.length );
+
+			results.forEach( (item, idx) => {
+				assert.isObject( item );
+				assert.containsAllKeys( item, ['price', 'sma'] );
+				assert.isNumber( item.price );
+				assert.isNumber( item.sma );
+				assert.closeTo( expectedResult[idx], item.sma, 0.1 );  
+			});
 		};
 
 		[
@@ -27,14 +34,24 @@ describe('SMA', function(){
 	});
 
 	it('should calculate correctly with starIndex and endIndex options and return result', () => {
-		let opts = { timePeriods: 4, startIndex: 1, endIndex: data.length - 2 };
+		let opts = { periods: 4, startIndex: 1, endIndex: data.length - 2 };
 		let sma = new SMA( opts );
 		sma.setValues( data );
-		let result = sma.calculate();
+		let results = sma.calculate();
 
-		assert.isArray( result )
-		assert.isTrue( (opts.endIndex + 1 - opts.startIndex + 1) - opts.timePeriods == result.length );
-		assert.sameOrderedMembers( result, [3.5, 4.5, 5.5, 6.5] );
+		assert.isArray( results )
+		assert.isTrue( (opts.endIndex + 1 - opts.startIndex + 1) - opts.periods == results.length );
+
+		let expectedResult =  [3.5, 4.5, 5.5, 6.5];
+
+		results.forEach( (item, idx) => {
+			assert.isObject( item );
+			assert.containsAllKeys( item, ['price', 'sma'] );
+			assert.isNumber( item.price );
+			assert.isNumber( item.sma );
+			assert.closeTo( expectedResult[idx], item.sma, 0.1 );  
+		});
+		
 	});
 
 	it('should throw error on invalid values', () => {
@@ -49,9 +66,9 @@ describe('SMA', function(){
 		assert.throws( () => sma.calculate(), Error );
 	});	
 		
-	it('should throw error on invalid timePeriods', () => {
-		function runTest( timePeriods ){
-			let sma = new SMA( { timePeriods } );
+	it('should throw error on invalid periods', () => {
+		function runTest( periods ){
+			let sma = new SMA( { periods } );
 			sma.setValues( data );
 			assert.throws( () => sma.calculate(), Error );
 		}
