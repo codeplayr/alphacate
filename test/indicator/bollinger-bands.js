@@ -41,4 +41,22 @@ describe('Boilinger Bands', function(){
 		].forEach( (item) => runTest( item.p, item.v, item.e ) );
 	});
 
+	it('should throw error on invalid options', () => {
+		function runTest( opts ){
+			let bb = new BB( opts );
+			bb.setValues( items );
+			assert.throws( () => bb.calculate(), Error );
+		};
+
+		[
+			{ periods: items.length + 1 },
+			{ startIndex: items.length + 1 },
+			{ startIndex: 1, periods: items.length },
+			{ endIndex: items.length + 1 },
+			{ periods: 'foo' },
+			{ startIndex: items.length, endIndex: 0 },
+		].forEach( ( item ) => runTest( item )  );
+
+	});	
+
 });
