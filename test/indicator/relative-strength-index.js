@@ -57,15 +57,39 @@ describe('RSI', function(){
 		assert.closeTo( last_item.rsi, 58, 1 );
 	}
 
+	let runTest2 = function( data, options, expectedResultLength ) {
+		let rsi = new RSI( options );
+		rsi.setValues( data );
+
+		let result = rsi.calculate();
+
+		assert.isArray( result );
+		assert.isTrue( result.length ==  expectedResultLength  );
+
+		let last_item  = result[result.length - 1 ];
+
+		assert.isTrue( last_item.price == 45.71 );
+		assert.isTrue( last_item.gain == 0 );
+		assert.closeTo( last_item.avg_gain, 0.2, 0.1 );
+		assert.closeTo( last_item.loss, 0.5, 0.05 );
+		assert.closeTo( last_item.rs, 1.3, 0.1 );
+		assert.closeTo( last_item.rsi, 58, 1 );
+	}	
+
 	it('should calculate correctly and return results', () => {
-		runTest( data, {periods: 14}, data.length );
+		runTest( [...data], {periods: 14, sliceOffset: false}, data.length );
+	});
+
+	it('should calculate correctly and return results without offset', () => {
+		let opts = {periods: 14, sliceOffset: true};
+		runTest2( [...data], opts, data.length - opts.periods  ); 
 	});
 
 	it('should calculate correctly with ranges and return results', () => {
 		let dataCopy = [...data];
 		dataCopy.unshift(40.11);
 		dataCopy.push(45.99);
-		runTest( dataCopy,  {periods: 14, startIndex: 1, endIndex: dataCopy.length - 2}, dataCopy.length - 2 );  
+		runTest( dataCopy,  {periods: 14, sliceOffset: false, startIndex: 1, endIndex: dataCopy.length - 2}, dataCopy.length - 2 );  
 	});
 
 	it('should throw error on invalid options', () => {

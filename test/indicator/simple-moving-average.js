@@ -9,14 +9,12 @@ describe('SMA', function(){
 	let data = [1,2,3,4,5,6,7,8,9];
 
 	it('should calculate correctly and return result', () => {
-		function runTest( periods, values, expectedResult ){
-			let opts = { periods };
-			let sma = new SMA( opts );
+		function runTest( options, values, expectedResult, expectedPrice ){
+			let sma = new SMA( options );
 			sma.setValues( values );
 			let results = sma.calculate();
 
 			assert.isArray( results )
-			assert.isTrue( values.length - opts.periods + 1  == results.length );
 
 			results.forEach( (item, idx) => {
 				assert.isObject( item );
@@ -24,13 +22,15 @@ describe('SMA', function(){
 				assert.isNumber( item.price );
 				assert.isNumber( item.sma );
 				assert.closeTo( expectedResult[idx], item.sma, 0.1 );  
+				assert.isTrue( item.price == expectedPrice[ idx ] );
 			});
 		};
 
 		[
-			{t: 4, v:data, e: [2.5, 3.5, 4.5, 5.5, 6.5, 7.5] },
-			{t: 9, v:data, e: [5]}
-		].forEach( ( item ) => runTest( item.t, item.v, item.e ) );
+			{o: {periods: 4}, v:data, e: [2.5, 3.5, 4.5, 5.5, 6.5, 7.5], ep: [4,5,6,7,8,9] },
+			{o: {periods: 9}, v:data, e: [5], ep: [9] },
+			{o: {periods: 4, sliceOffset: false}, v:data, e: [0, 0, 0, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5], ep:[1,2,3,4,5,6,7,8,9] },
+		].forEach( ( item ) => runTest( item.o, item.v, item.e, item.ep ) );
 	});
 
 	it('should calculate correctly with starIndex and endIndex options and return result', () => {
@@ -49,7 +49,8 @@ describe('SMA', function(){
 			assert.containsAllKeys( item, ['price', 'sma'] );
 			assert.isNumber( item.price );
 			assert.isNumber( item.sma );
-			assert.closeTo( expectedResult[idx], item.sma, 0.1 );  
+			assert.closeTo( expectedResult[idx], item.sma, 0.1 ); 
+			assert.isTrue( item.price == data[ opts.startIndex + opts.periods -1 + idx ] ); 
 		});
 		
 	});

@@ -5,7 +5,7 @@ const EMA = require('./../../lib/indicator/exponential-moving-average');
 
 describe('EMA', function(){
 
-	let arr = {
+	let data = {
 		items: [
 			22.27,
 			22.19,
@@ -38,7 +38,7 @@ describe('EMA', function(){
 			22.40,
 			22.17,
 	  	],
-	  	range: 10,
+	  	periods: 10,
 		results: [
 			22.22,
 			22.21,
@@ -64,7 +64,7 @@ describe('EMA', function(){
 		]
 	};
 
-	let arr_2 = {
+	let data_2 = {
 		items: [
 			22.81,
 			23.09,
@@ -81,7 +81,7 @@ describe('EMA', function(){
 			24.51,
 			23.73,
 		],
-		range: 9,
+		periods: 9,
 		results: [
 			22.81,
 			22.87,
@@ -100,7 +100,7 @@ describe('EMA', function(){
 		]
 	};
 
-	let arr_3 = {
+	let data_3 = {
 		items: [
 			22.81,
 			23.09,
@@ -124,7 +124,7 @@ describe('EMA', function(){
 			22.80,
 			22.84,
 		],
-		range: 9,
+		periods: 9,
 		results: [
 			23.07,
 			23.18,
@@ -143,34 +143,49 @@ describe('EMA', function(){
 	};
 
 	it('should calculate correctly and return results', () => {
-		let ema = new EMA( {range: arr.range} );
-		ema.setValues( arr.items );
+		let ema = new EMA( {periods: data.periods} );
+		ema.setValues( data.items );
 		let results = ema.calculate();
 		assert.isArray( results );
-		assert.isTrue( arr.items.length - (arr.range - 1) == results.length );
-		results.forEach( (item, idx) => assert.closeTo( item.ema, arr.results[ idx ], 0.02 ));
+		assert.isTrue( data.items.length - (data.periods - 1) == results.length );
+		results.forEach( (item, idx) => assert.closeTo( item.ema, data.results[ idx ], 0.02 ));
 	});
 
 	it('should calculate correctly when started with first item and return results', () => {
-		let ema = new EMA( {range: arr_2.range, startWithFirst: true } );
-		ema.setValues( arr_2.items );
+		let ema = new EMA( {periods: data_2.periods, startWithFirst: true } );
+		ema.setValues( data_2.items );
 		let results = ema.calculate();
 		assert.isArray( results );
-		assert.isTrue( arr_2.items.length == arr_2.results.length );
+		assert.isTrue( data_2.items.length == data_2.results.length );
 		results.forEach( (item, idx) => {
-			assert.closeTo( item.ema, arr_2.results[ idx ], 0.02 );
+			assert.closeTo( item.ema, data_2.results[ idx ], 0.02 );
 		});
 	});
 
 	it('should calculate correctly with range and return results', () => {
-		let ema = new EMA( {range: arr_3.range } );
-		ema.setValues( arr_3.items );
+		let ema = new EMA( {periods: data_3.periods } );
+		ema.setValues( data_3.items );
 		let results = ema.calculate();
 		assert.isArray( results );
-		assert.isTrue( arr_3.items.length - (arr_3.range - 1) == arr_3.results.length );
+		assert.isTrue( data_3.items.length - (data_3.periods - 1) == data_3.results.length );
 		results.forEach( (item, idx) => {
-			assert.closeTo( item.ema, arr_3.results[ idx ], 0.05 );
+			assert.closeTo( item.ema, data_3.results[ idx ], 0.05 );
 		});
+	});
+
+	it('should calculate correctly with periods and return results with offset', () => {
+		let dataCopy = Object.assign({}, data );
+		let i = 0;
+		while( i < dataCopy.periods - 1 ){
+			dataCopy.results.unshift( 0 );
+			i++;
+		}
+		let ema = new EMA( {periods: dataCopy.periods, sliceOffset: false} );
+		ema.setValues( dataCopy.items );
+		let results = ema.calculate();
+		assert.isArray( results );
+		assert.isTrue( dataCopy.items.length == results.length );
+		results.forEach( (item, idx) => assert.closeTo( item.ema, dataCopy.results[ idx ], 0.02 ));
 	});
 
 });

@@ -14,15 +14,17 @@ describe('Boilinger Bands', function(){
 			let opts = { periods };
 			let bb = new BB( opts );
 			bb.setValues( values );
-			let result = bb.calculate();
+			let results = bb.calculate();
 
-			assert.isArray( result.middle )
-			assert.isTrue( values.length - opts.periods + 1  == result.middle.length );
+			assert.containsAllKeys( results, ['upper', 'middle', 'lower', 'price'] );
+			assert.isArray( results.middle )
+			assert.isTrue( values.length - opts.periods + 1  == results.middle.length );
 
 			expectedResult.forEach( ( expected, idx ) => {
-				assert.closeTo( result.upper[idx], expected.u, 0.1 );
-				assert.closeTo( result.middle[idx], expected.m, 0.1 );
-				assert.closeTo( result.lower[idx], expected.l, 0.1 );
+				assert.closeTo( results.upper[idx], expected.u, 0.1 );
+				assert.closeTo( results.middle[idx], expected.m, 0.1 );
+				assert.closeTo( results.lower[idx], expected.l, 0.1 );
+				assert.isTrue( results.price[idx] == values[ periods - 1 + idx ] );
 			});
 		};
 
@@ -41,21 +43,53 @@ describe('Boilinger Bands', function(){
 		].forEach( (item) => runTest( item.p, item.v, item.e ) );
 	});
 
+	it('should calculate correctly and return results with offset', () => {
+		function runTest( periods, values, expectedResult ){
+			let opts = { periods, sliceOffset: false };
+			let bb = new BB( opts );
+			bb.setValues( values );
+			let results = bb.calculate();
+
+			assert.containsAllKeys( results, ['upper', 'middle', 'lower', 'price'] );
+			assert.isArray( results.middle )
+			assert.isTrue( values.length == results.middle.length );
+
+			expectedResult.forEach( ( expected, idx ) => {
+				assert.closeTo( results.upper[idx], expected.u, 0.1 );
+				assert.closeTo( results.middle[idx], expected.m, 0.1 );
+				assert.closeTo( results.lower[idx], expected.l, 0.1 );
+				assert.isTrue( results.price[idx] == values[ idx ] );
+			});
+		};
+ 
+		[
+			{
+				p: 5, v: data, e: [
+					{ m:0, u:0, l:0 },
+					{ m:0, u:0, l:0 },
+					{ m:0, u:0, l:0 },
+					{ m:0, u:0, l:0 },
+					{ m:26.6, u:27.8, l:25.4 }
+				]
+			}
+		].forEach( (item) => runTest( item.p, item.v, item.e ) );
+	});
+
+
 	it('should throw error on invalid options', () => {
 		function runTest( opts ){
 			let bb = new BB( opts );
-			bb.setValues( items );
+			bb.setValues( data );
 			assert.throws( () => bb.calculate(), Error );
 		};
 
 		[
-			{ periods: items.length + 1 },
-			{ startIndex: items.length + 1 },
-			{ startIndex: 1, periods: items.length },
-			{ endIndex: items.length + 1 },
+			{ periods: data.length + 1 },
+			{ startIndex: data.length + 1 },
+			{ endIndex: data.length + 1 },
 			{ periods: 'foo' },
-			{ startIndex: items.length, endIndex: 0 },
-		].forEach( ( item ) => runTest( item )  );
+			{ startIndex: data.length, endIndex: 0 },
+		].forEach( ( option ) => runTest( option )  );
 
 	});	
 
