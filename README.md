@@ -4,6 +4,11 @@
 
 A node.js toolkit with various indicators and oscillators for the technical stock analysis.
 
+## Installation
+
+---
+
+    $ npm install alphacate [--save]
 
 ## Example
 
@@ -76,7 +81,7 @@ Stochastic Oscillator                   |{k,v, price}
 
 To configure the indicator with different settings, you can pass an optional configuration object into the indicator constructor. 
 
-Indicator								|Options									
+Indicator								|Option properties									
 ----------------------------------------|-------------------------------------------
 Average True Range                      |periods, startIndex, endIndex				
 Bollinger Bands                         |periods, startIndex, endIndex, sliceOffset				
@@ -87,6 +92,19 @@ On Balance Volume                       |startIndex, endIndex
 Relative Strength Index                 |periods, startIndex, endIndex, sliceOffset					
 Simple Moving Average                   |periods, startIndex, endIndex, sliceOffset				
 Stochastic Oscillator                   |periods, startIndex, endIndex, smaPeriods, sliceOffset 	
+
+See the table below for a description of the particular option property
+
+Option property     |Type       |Description
+--------------------|-----------|------------------------
+periods             |Number     |The time periods to calculate the indicator
+startIndex          |Number     |The index for passed data serie to start the calulation 
+endIndex            |Number     |The index for passed data serie to end the calculation
+sliceOffset         |Boolean    |Omit items in result collection used for inital period calculation 
+fastPeriods         |Number     |The time periods for the fast moving average
+slowPeriods         |Number     |The time periods for the slow moving average
+signalPeriods       |Number     |The time periods for the signal average
+smaPeriods          |Number     |The time periods for the simple moving average
 
 
 ## Run Tests
