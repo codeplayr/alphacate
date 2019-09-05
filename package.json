@@ -1,7 +1,7 @@
 {
 	"name": "alphacate",
-	"version": "0.0.1",
-	"description": "",
+	"version": "0.1.0",
+	"description": "Toolkit for the technical stock analysis",
 	"main": "index.js",
 	"scripts": {
 		"test": "node ./node_modules/mocha/bin/mocha ./tests.js --reporter spec",
@@ -19,7 +19,21 @@
 		"chai-fs": "1.0.x",
 		"istanbul": "0.4.x"
 	},
-	"keywords": [],
+	"keywords": [
+		"simple-moving-average",
+		"exponential-moving-average",
+		"stochastic-oscillator",
+		"bollinger-bands",
+		"fintech",
+		"financial-technology",
+		"stock",
+		"math",
+		"technical-analysis"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/codeplayr/alphacate.git"
+	},
 	"author": "Lukas B",
 	"license": "MIT"
 }
