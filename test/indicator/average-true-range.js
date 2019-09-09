@@ -34,5 +34,19 @@ describe('Average True Range', function(){
 
     });
 
+	it('should calculate the first average true range in collection correctly and return result', () => {
+		let collection = [];
+		for(let i=0; i<14;i++ ){
+			collection.push( {tr: expectedResults[i][3] } );
+		}
+
+		let atr = new ATR();
+		let result = atr._calcFirstATR( collection );
+
+		assert.isNumber( result );
+		assert.closeTo( result, expectedResults[ 13 ][ 4 ], 0.01 );
+
+	});	
+
 
 });
