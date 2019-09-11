@@ -46,7 +46,16 @@ describe('Average True Range', function(){
 		assert.isNumber( result );
 		assert.closeTo( result, expectedResults[ 13 ][ 4 ], 0.01 );
 
-	});	
+	});
 
+	it('should calculate remaining average true range correctly and return results', () => {
+		let prevATR = expectedResults[ 13 ][ 4 ];
+		let currTR = expectedResults[ 14 ][ 3 ];
+		let atr = new ATR();
+		let result = atr._calcRemainingATR( prevATR, currTR, 14 );
 
+		assert.isNumber( result );
+		assert.closeTo(result, expectedResults[ 14 ][ 4 ], 0.02 );
+	});
+	
 });
