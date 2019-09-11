@@ -57,5 +57,27 @@ describe('Average True Range', function(){
 		assert.isNumber( result );
 		assert.closeTo(result, expectedResults[ 14 ][ 4 ], 0.02 );
 	});
+
+	it('should compute correctly and return results', () => {
+        let collection =  [];
+
+        data.forEach( (item, idx) => {
+            collection.push( {high: item[0], low: item[1], close: item[2] } );
+        });
+
+        let atr = new ATR( {periods: 14} );
+        atr.setValues( collection );
+        let results = atr.calculate();
+
+        assert.isArray(results);
+        assert.isTrue( results.length == expectedResults.length );
+
+        results.forEach( ( item, idx ) => {
+            assert.isObject( item );
+            assert.closeTo( expectedResults[ idx ][ 3 ], item.tr, 0.02 );
+            assert.closeTo( expectedResults[ idx ][ 4 ], item.atr, 0.02 );
+        });
+
+    });
 	
 });
