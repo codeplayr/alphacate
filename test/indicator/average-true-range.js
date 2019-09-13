@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('chai').assert;
-const _ = require('underscore');
 const ATR = require('./../../lib/indicator/average-true-range');
 const Fixture = require('./../fixtures/average-true-range');
 
@@ -79,5 +78,37 @@ describe('Average True Range', function(){
         });
 
     });
+
+    it('should throw error on invalid values', () => {
+		assert.throws( () => ATR(), Error );
+		assert.throws( () => (new ATR()).calculate(), Error );
+		assert.throws( () => (new ATR()).setValues(1), Error );
+        assert.throws( () => (new ATR()).setValues('foo'), Error );
+
+        let atr = new ATR();
+        atr.setValues( [ {'foo': 100} ] );
+        assert.throws( () => atr.calculate(), Error );
+	});
+
+	it('should throw error on invalid options', () => {
+		function runTest( opts ){
+			let atr = new ATR( opts);
+			atr.setValues( data );
+			assert.throws( () => atr.calculate(), Error );
+		};
+
+
+		[
+			{ periods: data.length + 1 },
+			{ startIndex: data.length + 1 },
+			{ startIndex: 1, periods: data.length },
+			{ endIndex: data.length + 1 },
+			{ periods: 'foo' },
+			{ startIndex: data.length, endIndex: 0 },
+			{ startIndex: 1, periods: 10 },
+			{ startIndex: 1, endIndex: 2 },
+		].forEach( ( item ) => runTest( item )  );
+
+	});    
 	
 });
