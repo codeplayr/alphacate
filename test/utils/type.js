@@ -17,7 +17,7 @@ describe( 'Type util', () =>{
         assert.isFalse( TypeUtil.isNull( {} ) );
         assert.isFalse( TypeUtil.isNull( () => {} ) );
     });
-    
+
     it('should check if value is number', () =>{
         assert.isTrue( TypeUtil.isNumber( 0 ) );
         assert.isTrue( TypeUtil.isNumber( 1 ) );
@@ -38,4 +38,23 @@ describe( 'Type util', () =>{
         assert.isFalse( TypeUtil.isNumber( {} ) );
         assert.isFalse( TypeUtil.isNumber( () => {} ) );
     });
+
+    it('should check if value is string', () =>{
+        assert.isTrue( TypeUtil.isString( '' ) );
+        assert.isTrue( TypeUtil.isString( 'lol' ) );
+        assert.isTrue( TypeUtil.isString( '0' ) );
+        assert.isTrue( TypeUtil.isString( 'false' ) );
+        assert.isTrue( TypeUtil.isString( ' ' ) );
+        assert.isTrue( TypeUtil.isString( String('100') ) );
+
+        assert.isFalse( TypeUtil.isString( undefined ) );
+        assert.isFalse( TypeUtil.isString( true ) );
+        assert.isFalse( TypeUtil.isString( false ) );
+        assert.isFalse( TypeUtil.isString( NaN ) );
+        assert.isFalse( TypeUtil.isString( null ) );
+        assert.isFalse( TypeUtil.isString( [] ) );
+        assert.isFalse( TypeUtil.isString( {} ) );
+        assert.isFalse( TypeUtil.isString( () => {} ) );
+    });
+       
 });
