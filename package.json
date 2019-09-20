@@ -11,7 +11,9 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"underscore": "1.8.x"
+		"underscore": "1.8.x",
+		"bankers-rounding": "0.x",
+		"convert-hrtime": "3.x"
 	},
 	"devDependencies": {
 		"mocha": "2.5.x",
