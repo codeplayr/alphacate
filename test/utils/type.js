@@ -56,5 +56,19 @@ describe( 'Type util', () =>{
         assert.isFalse( TypeUtil.isString( {} ) );
         assert.isFalse( TypeUtil.isString( () => {} ) );
     });
-       
+
+    it('should check if value is object', () =>{
+        assert.isTrue( TypeUtil.isObject( {} ) );
+
+        assert.isFalse( TypeUtil.isObject( '' ) );
+        assert.isFalse( TypeUtil.isObject( 'a' ) );
+        assert.isFalse( TypeUtil.isObject( 123 ) );
+        assert.isFalse( TypeUtil.isObject( [] ) ); 
+        assert.isFalse( TypeUtil.isObject( undefined ) );
+        assert.isFalse( TypeUtil.isObject( true ) );
+        assert.isFalse( TypeUtil.isObject( false ) );
+        assert.isFalse( TypeUtil.isObject( NaN ) );
+        assert.isFalse( TypeUtil.isObject( null ) );
+        assert.isFalse( TypeUtil.isObject( () => {} ) );
+    });     
 });
