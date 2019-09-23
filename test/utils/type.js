@@ -70,5 +70,21 @@ describe( 'Type util', () =>{
         assert.isFalse( TypeUtil.isObject( NaN ) );
         assert.isFalse( TypeUtil.isObject( null ) );
         assert.isFalse( TypeUtil.isObject( () => {} ) );
-    });     
+    }); 
+    
+    it('should check if value is boolean', () =>{
+        assert.isTrue( TypeUtil.isBoolean( true ) );
+        assert.isTrue( TypeUtil.isBoolean( false ) );
+
+        assert.isFalse( TypeUtil.isBoolean( '' ) );
+        assert.isFalse( TypeUtil.isBoolean( 'a' ) );
+        assert.isFalse( TypeUtil.isBoolean( 123 ) );
+        assert.isFalse( TypeUtil.isBoolean( [] ) ); 
+        assert.isFalse( TypeUtil.isBoolean( undefined ) );
+        assert.isFalse( TypeUtil.isBoolean( NaN ) );
+        assert.isFalse( TypeUtil.isBoolean( null ) );
+        assert.isFalse( TypeUtil.isBoolean( {} ) );
+        assert.isFalse( TypeUtil.isBoolean( () => {} ) );
+    });      
+
 });
