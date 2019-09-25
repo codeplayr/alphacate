@@ -85,6 +85,22 @@ describe( 'Type util', () =>{
         assert.isFalse( TypeUtil.isBoolean( null ) );
         assert.isFalse( TypeUtil.isBoolean( {} ) );
         assert.isFalse( TypeUtil.isBoolean( () => {} ) );
-    });      
+    });  
+        
+    it('should check if value is undefined', () =>{
+        let a;
+        assert.isTrue( TypeUtil.isUndefined( a ) );
+        assert.isTrue( TypeUtil.isUndefined( undefined ) );
 
+        assert.isFalse( TypeUtil.isUndefined( true ) );
+        assert.isFalse( TypeUtil.isUndefined( false ) );
+        assert.isFalse( TypeUtil.isUndefined( '' ) );
+        assert.isFalse( TypeUtil.isUndefined( 'a' ) );
+        assert.isFalse( TypeUtil.isUndefined( 123 ) );
+        assert.isFalse( TypeUtil.isUndefined( [] ) ); 
+        assert.isFalse( TypeUtil.isUndefined( NaN ) );
+        assert.isFalse( TypeUtil.isUndefined( null ) );
+        assert.isFalse( TypeUtil.isUndefined( {} ) );
+        assert.isFalse( TypeUtil.isUndefined( () => {} ) );
+    });  
 });
