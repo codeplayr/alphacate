@@ -86,7 +86,7 @@ describe( 'Type util', () =>{
         assert.isFalse( TypeUtil.isBoolean( {} ) );
         assert.isFalse( TypeUtil.isBoolean( () => {} ) );
     });  
-        
+
     it('should check if value is undefined', () =>{
         let a;
         assert.isTrue( TypeUtil.isUndefined( a ) );
@@ -103,4 +103,20 @@ describe( 'Type util', () =>{
         assert.isFalse( TypeUtil.isUndefined( {} ) );
         assert.isFalse( TypeUtil.isUndefined( () => {} ) );
     });  
+
+    it('should check if value is NaN', () =>{
+        assert.isTrue( TypeUtil.isNaN( NaN ) );
+
+        assert.isFalse( TypeUtil.isNaN( undefined ) );
+        assert.isFalse( TypeUtil.isNaN( true ) );
+        assert.isFalse( TypeUtil.isNaN( false ) );
+        assert.isFalse( TypeUtil.isNaN( '' ) );
+        assert.isFalse( TypeUtil.isNaN( 'a' ) );
+        assert.isFalse( TypeUtil.isNaN( 123 ) );
+        assert.isFalse( TypeUtil.isNaN( [] ) ); 
+        assert.isFalse( TypeUtil.isNaN( {} ) );
+        assert.isFalse( TypeUtil.isNaN( null ) );
+        assert.isFalse( TypeUtil.isNaN( () => {} ) );
+    });  
+        
 });
