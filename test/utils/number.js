@@ -30,7 +30,8 @@ describe('Number', function(){
 		]
 
 		cases.forEach(function(testCase) {
-			var r = NumberUtil.roundTo( testCase.n, testCase.p );
+			//use default rounding
+			var r = NumberUtil.roundTo( testCase.n, testCase.p, 'default' );
 			assert.equal(r, testCase.e, 'didn\'t get right number');
 		});
 
