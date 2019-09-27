@@ -118,5 +118,20 @@ describe( 'Type util', () =>{
         assert.isFalse( TypeUtil.isNaN( null ) );
         assert.isFalse( TypeUtil.isNaN( () => {} ) );
     });  
-        
+    
+    it('should check if value is function', () =>{
+        let a = () => {};
+        assert.isTrue( TypeUtil.isFunction( a ) );
+
+        assert.isFalse( TypeUtil.isFunction( undefined ) );
+        assert.isFalse( TypeUtil.isFunction( true ) );
+        assert.isFalse( TypeUtil.isFunction( false ) );
+        assert.isFalse( TypeUtil.isFunction( '' ) );
+        assert.isFalse( TypeUtil.isFunction( 'a' ) );
+        assert.isFalse( TypeUtil.isFunction( 123 ) );
+        assert.isFalse( TypeUtil.isFunction( [] ) ); 
+        assert.isFalse( TypeUtil.isFunction( {} ) );
+        assert.isFalse( TypeUtil.isFunction( null ) );
+    });  
+    
 });
