@@ -31,11 +31,11 @@ describe('RSI', function(){
 		45.71,
 	];
 
-	let runTest = function( data, options, expectedResultLength ) {
+	let runTest = async function( data, options, expectedResultLength ) {
 		let rsi = new RSI( options );
 		rsi.setValues( data );
 
-		let result = rsi.calculate();
+		let result = await rsi.calculate();
 
 		assert.isArray( result );
 		assert.isTrue( result.length ==  expectedResultLength  );
@@ -57,11 +57,11 @@ describe('RSI', function(){
 		assert.closeTo( last_item.rsi, 58, 1 );
 	}
 
-	let runTest2 = function( data, options, expectedResultLength ) {
+	let runTest2 = async function( data, options, expectedResultLength ) {
 		let rsi = new RSI( options );
 		rsi.setValues( data );
 
-		let result = rsi.calculate();
+		let result = await rsi.calculate();
 
 		assert.isArray( result );
 		assert.isTrue( result.length ==  expectedResultLength  );
@@ -77,11 +77,11 @@ describe('RSI', function(){
 	}	
 
 	it('should calculate correctly and return results', () => {
-		runTest( [...data], {periods: 14, sliceOffset: false}, data.length );
+		runTest( [...data], {periods: 14, sliceOffset: false, lazyEvaluation: true}, data.length );
 	});
 
 	it('should calculate correctly and return results without offset', () => {
-		let opts = {periods: 14, sliceOffset: true};
+		let opts = {periods: 14, sliceOffset: true, lazyEvaluation: true};
 		runTest2( [...data], opts, data.length - opts.periods  ); 
 	});
 
@@ -89,19 +89,32 @@ describe('RSI', function(){
 		let dataCopy = [...data];
 		dataCopy.unshift(40.11);
 		dataCopy.push(45.99);
-		runTest( dataCopy,  {periods: 14, sliceOffset: false, startIndex: 1, endIndex: dataCopy.length - 2}, dataCopy.length - 2 );  
+		runTest( dataCopy,  {periods: 14, sliceOffset: false, startIndex: 1, endIndex: dataCopy.length - 2, lazyEvaluation: true }, dataCopy.length - 2 );  
 	});
 
-	it('should throw error on invalid options', () => {
-		// timeperiod above array length
-		let rsi = new RSI( {endIndex: data.length - 1, periods: data.length } );
-		rsi.setValues( data );
-		assert.throw( () => rsi.calculate(), Error );
+	it('should throw error on invalid options', () => {		
+		let runTest = async ( options ) => {
+			let failed = false;
+			try{
+				let rsi = new RSI( options );
+				rsi.setValues( data );
+				let results = await rsi.calculate();
+			}catch( err ){
+				if(err.name == 'Error')	failed = true;
+			}
+			return failed;
+		};
 
-		// focusIndex above array length
-		rsi = new RSI( {endIndex: data.length, periods: 14 } );
-		rsi.setValues( data );
-		assert.throw( () => rsi.calculate(), Error );
+		(async () => {
+			var b = false;
+			// timeperiod above array length
+			b = await runTest(  {endIndex: data.length - 1, periods: data.length, lazyEvaluation: true } );
+			assert.isTrue( b )
+
+			// focusIndex above array length
+			b = await runTest(  {endIndex: data.length, periods: 14, lazyEvaluation: true } );
+			assert.isTrue( b )
+		})();
 
 	});
 

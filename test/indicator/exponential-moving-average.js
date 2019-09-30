@@ -142,50 +142,62 @@ describe('EMA', function(){
 		]
 	};
 
-	it('should calculate correctly and return results', () => {
-		let ema = new EMA( {periods: data.periods} );
-		ema.setValues( data.items );
-		let results = ema.calculate();
-		assert.isArray( results );
-		assert.isTrue( data.items.length - (data.periods - 1) == results.length );
-		results.forEach( (item, idx) => assert.closeTo( item.ema, data.results[ idx ], 0.02 ));
+	it('should calculate correctly and return results', ( done ) => {
+		(async () => {
+			let ema = new EMA( {periods: data.periods, lazyEvaluation: true} );
+			ema.setValues( data.items );
+			let results = await ema.calculate();
+			assert.isArray( results );
+			assert.isTrue( data.items.length - (data.periods - 1) == results.length );
+			results.forEach( (item, idx) => assert.closeTo( item.ema, data.results[ idx ], 0.02 ));
+			done();
+		})();
 	});
 
-	it('should calculate correctly when started with first item and return results', () => {
-		let ema = new EMA( {periods: data_2.periods, startWithFirst: true } );
-		ema.setValues( data_2.items );
-		let results = ema.calculate();
-		assert.isArray( results );
-		assert.isTrue( data_2.items.length == data_2.results.length );
-		results.forEach( (item, idx) => {
-			assert.closeTo( item.ema, data_2.results[ idx ], 0.02 );
-		});
+	it('should calculate correctly when started with first item and return results', (done) => {
+		(async () => {
+			let ema = new EMA( {periods: data_2.periods, startWithFirst: true, lazyEvaluation: true } );
+			ema.setValues( data_2.items );
+			let results = await ema.calculate();
+			assert.isArray( results );
+			assert.isTrue( data_2.items.length == data_2.results.length );
+			results.forEach( (item, idx) => {
+				assert.closeTo( item.ema, data_2.results[ idx ], 0.02 );
+			});
+			done();
+		})();
 	});
 
-	it('should calculate correctly with range and return results', () => {
-		let ema = new EMA( {periods: data_3.periods } );
-		ema.setValues( data_3.items );
-		let results = ema.calculate();
-		assert.isArray( results );
-		assert.isTrue( data_3.items.length - (data_3.periods - 1) == data_3.results.length );
-		results.forEach( (item, idx) => {
-			assert.closeTo( item.ema, data_3.results[ idx ], 0.05 );
-		});
+	it('should calculate correctly with range and return results', (done) => {
+		(async () => {
+			let ema = new EMA( {periods: data_3.periods } );
+			ema.setValues( data_3.items );
+			let results = await ema.calculate();
+			assert.isArray( results );
+			assert.isTrue( data_3.items.length - (data_3.periods - 1) == data_3.results.length );
+			results.forEach( (item, idx) => {
+				assert.closeTo( item.ema, data_3.results[ idx ], 0.05 );
+			});
+			done();
+		})();
 	});
 
-	it('should calculate correctly with periods and return results with offset', () => {
-		let dataCopy = Object.assign({}, data );
-		let i = 0;
-		while( i < dataCopy.periods - 1 ){
-			dataCopy.results.unshift( 0 );
-			i++;
-		}
-		let ema = new EMA( {periods: dataCopy.periods, sliceOffset: false} );
-		ema.setValues( dataCopy.items );
-		let results = ema.calculate();
-		assert.isArray( results );
-		assert.isTrue( dataCopy.items.length == results.length );
-		results.forEach( (item, idx) => assert.closeTo( item.ema, dataCopy.results[ idx ], 0.02 ));
+	it('should calculate correctly with periods and return results with offset', (done) => {
+		(async () => {
+			let dataCopy = Object.assign({}, data );
+			let i = 0;
+			while( i < dataCopy.periods - 1 ){
+				dataCopy.results.unshift( 0 );
+				i++;
+			}
+			let ema = new EMA( {periods: dataCopy.periods, sliceOffset: false, lazyEvaluation: true} );
+			ema.setValues( dataCopy.items );
+			let results = await ema.calculate();
+			assert.isArray( results );
+			assert.isTrue( dataCopy.items.length == results.length );
+			results.forEach( (item, idx) => assert.closeTo( item.ema, dataCopy.results[ idx ], 0.02 ));
+			done();
+		})();
 	});
 
 });

@@ -8,27 +8,29 @@ describe('Boilinger Bands', function(){
 
 	let data = [25.5, 26.75, 27.0, 26.5, 27.25];
 	let data_2 = [25.5, 26.75, 27.0, 26.5, 27.25, 28.1];
-
+	
 	it('should calculate correctly and return result', () => {
-		function runTest( periods, values, expectedResult ){
-			let opts = { periods };
+		let runTest = async ( periods, values, expectedResult ) => {
+			let opts = { periods, lazyEvaluation: true };
 			let bb = new BB( opts );
 			bb.setValues( values );
-			let results = bb.calculate();
+			let results = await bb.calculate();
 
-			assert.containsAllKeys( results, ['upper', 'middle', 'lower', 'price'] );
-			assert.isArray( results.middle )
-			assert.isTrue( values.length - opts.periods + 1  == results.middle.length );
+			assert.isArray( results )
+			assert.isTrue( values.length - opts.periods + 1  == results.length );
 
 			expectedResult.forEach( ( expected, idx ) => {
-				assert.closeTo( results.upper[idx], expected.u, 0.1 );
-				assert.closeTo( results.middle[idx], expected.m, 0.1 );
-				assert.closeTo( results.lower[idx], expected.l, 0.1 );
-				assert.isTrue( results.price[idx] == values[ periods - 1 + idx ] );
+				let resultItem = results[ idx ];   
+				assert.isObject( resultItem );
+				assert.containsAllKeys( resultItem, ['upper', 'middle', 'lower', 'price'] );
+				assert.closeTo( resultItem.upper, expected.u, 0.1 );
+				assert.closeTo( resultItem.middle, expected.m, 0.1 );
+				assert.closeTo( resultItem.lower, expected.l, 0.1 );
+				assert.isTrue( resultItem.price == values[ periods - 1 + idx ] );
 			});
 		};
 
-		[
+		let arr = [
 			{
 				p: 5, v: data, e: [
 					{ m:26.6, u:27.8, l:25.4 }
@@ -40,29 +42,38 @@ describe('Boilinger Bands', function(){
 					{ m:27.1, u:28.2, l:26.0 }
 				]
 			},
-		].forEach( (item) => runTest( item.p, item.v, item.e ) );
+		];
+
+		for( let i=0; i<arr.length; i++ ){
+			let item = arr[ i ];
+			runTest(item.p, item.v, item.e );
+		}
+
 	});
 
+
+
 	it('should calculate correctly and return results with offset', () => {
-		function runTest( periods, values, expectedResult ){
-			let opts = { periods, sliceOffset: false };
+		let runTest = async ( periods, values, expectedResult ) => {
+			let opts = { periods, sliceOffset: false, lazyEvaluation: true };
 			let bb = new BB( opts );
 			bb.setValues( values );
-			let results = bb.calculate();
+			let results = await bb.calculate();
 
-			assert.containsAllKeys( results, ['upper', 'middle', 'lower', 'price'] );
-			assert.isArray( results.middle )
-			assert.isTrue( values.length == results.middle.length );
+			assert.isArray( results )
+			assert.isTrue( values.length == results.length );
 
 			expectedResult.forEach( ( expected, idx ) => {
-				assert.closeTo( results.upper[idx], expected.u, 0.1 );
-				assert.closeTo( results.middle[idx], expected.m, 0.1 );
-				assert.closeTo( results.lower[idx], expected.l, 0.1 );
-				assert.isTrue( results.price[idx] == values[ idx ] );
+				let resultItem = results[idx];
+				assert.containsAllKeys( resultItem, ['upper', 'middle', 'lower', 'price'] );
+				assert.closeTo( resultItem.upper, expected.u, 0.1 );
+				assert.closeTo( resultItem.middle, expected.m, 0.1 );
+				assert.closeTo( resultItem.lower, expected.l, 0.1 );
+				assert.isTrue( resultItem.price == values[ idx ] );
 			});
 		};
  
-		[
+		let arr = [
 			{
 				p: 5, v: data, e: [
 					{ m:0, u:0, l:0 },
@@ -72,7 +83,12 @@ describe('Boilinger Bands', function(){
 					{ m:26.6, u:27.8, l:25.4 }
 				]
 			}
-		].forEach( (item) => runTest( item.p, item.v, item.e ) );
+		];
+
+		for( let i=0; i<arr.length; i++ ){
+			let item = arr[i];
+			runTest( item.p, item.v, item.e );
+		}
 	});
 
 
