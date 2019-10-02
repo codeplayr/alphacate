@@ -4,8 +4,8 @@
 	"description": "Toolkit for the technical stock analysis",
 	"main": "index.js",
 	"scripts": {
-		"test": "node ./node_modules/mocha/bin/mocha ./tests.js --reporter spec",
-		"coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --include-all-sources  -- ./tests.js --reporter spec"
+		"test": "nyc --reporter=text-summary ./node_modules/mocha/bin/mocha ./tests.js",
+		"coverage": "nyc --reporter=html --reporter=text ./node_modules/mocha/bin/mocha  -- ./tests.js"
 	},
 	"engines": {
 		"node": ">=10"
@@ -16,21 +16,29 @@
 		"convert-hrtime": "3.x"
 	},
 	"devDependencies": {
-		"mocha": "2.5.x",
+		"mocha": "4.1.x",
 		"chai": "4.0.x",
 		"chai-fs": "1.0.x",
-		"istanbul": "0.4.x"
+		"nyc": "14.1.x"
 	},
 	"keywords": [
+		"average-true-range",
+		"linearly-weighted-moving-average",
+		"moving-average-convergence-divergence",
 		"simple-moving-average",
 		"exponential-moving-average",
 		"stochastic-oscillator",
 		"bollinger-bands",
+		"on-balance-volume",
+		"relative-strength-index",
 		"fintech",
 		"financial-technology",
 		"stock",
 		"math",
-		"technical-analysis"
+		"technical-analysis",
+		"finance",
+		"invest",
+		"trading"
 	],
 	"repository": {
 		"type": "git",
