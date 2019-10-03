@@ -2,7 +2,7 @@
 
 ---
 
-A node.js toolkit with various indicators and oscillators for the technical stock analysis.
+A Node.js toolkit with various indicators and oscillators for the technical stock analysis. 
 
 ## Installation
 
@@ -14,28 +14,36 @@ A node.js toolkit with various indicators and oscillators for the technical stoc
 
 ---
 
-```js
-//retrieve indicator module via accessor
-const LWMA = require('alphacate').lwma;       
+```js      
+//retrieve indicator module via accessor or alias
+const LWMA = require('alphacate').LWMA;
+const BB = require('alphacate').BollingerBands;
 
-//or retrieve via full name
-//const LWMA = require('alphacate').linearlyWeightedMovingAverage;
+//do computation asynchronously
+let run = async () => {
+    try{
+        //pass optional configuration object into the constructor
+        let lwma = new LWMA( {periods: 4} );
+        let bb = new BB( {periods: 4} );
 
-//pass optional configuration object into constructor
-let lwma = new LWMA( {periods: 4} );
+        //set data series
+        lwma.setValues( [10, 15, 16, 18, 20, 18, 17] );
+        bb.setValues( [25.5, 26.75, 27.0, 26.5, 27.25] );
 
-//insert data series
-lwma.setValues( [10, 15, 16, 18, 20, 18, 17] );
+        //invoke calculate() to compute and retrieve result collection
+        //an error will be throw if passed data serie or options are invalid
+        let lwmaResultCollection = await lwma.calculate();
+        let bbResultCollection = await bb.calculate();
 
-try{
-    //invoke calculate function to compute and retrieve result collection
-    //an error will be throw if passed data serie or options are invalid
-    let resultColection = lwma.calculate();
-    console.log(resultColection[0].lwma);
-}
-catch( err ){
-    console.log(err.message);
-}
+        console.log( lwmaResultCollection[0].lwma, bbResultCollection[0].upper );
+    }
+    catch( err ){
+        console.log(err.message);
+    }
+
+};
+
+run();
 ```
 
 
@@ -49,18 +57,38 @@ See the list below for all available indicators in the package. Retrieve the ind
 
 Indicator                               |Module accessor               		|Alias              
 ----------------------------------------|-----------------------------------|-----------	
-Average True Range                      |averageTrueRange                   |atr                
-Bollinger Bands                         |bollingerBands                     |bb                 
-Exponential Moving Average              |exponentialMovingAverage           |ema                
-Linearly Weighted Moving Average        |linearlyWeightedMovingAverage      |lwma               
-Moving Average Convergence Divergence   |movingAverageConvergenceDivergence |macd               
-On Balance Volume                       |onBalanceVolume                    |obv                
-Relative Strength Index                 |relativeStrengthIndex              |rsi                
-Simple Moving Average                   |simpleMovingAverage                |sma                
-Stochastic Oscillator                   |stochasticOscillator               |so                 
+Average True Range                      |AverageTrueRange                   |ATR                
+Bollinger Bands                         |BollingerBands                     |BB                 
+Exponential Moving Average              |ExponentialMovingAverage           |EMA                
+Linearly Weighted Moving Average        |LinearlyWeightedMovingAverage      |LWMA               
+Moving Average Convergence Divergence   |MovingAverageConvergenceDivergence |MACD               
+On Balance Volume                       |OnBalanceVolume                    |OBV                
+Relative Strength Index                 |RelativeStrengthIndex              |RSI                
+Simple Moving Average                   |SimpleMovingAverage                |SMA                
+Stochastic Oscillator                   |StochasticOscillator               |SO                 
+
+### Data serie item
+
+---
+
+The type of the item in the data serie that will be passed into the `setValues` function
+
+Indicator								|Type       |Detail
+----------------------------------------|-----------|---------------------------------------
+Average True Range                      |Number     |                             
+Bollinger Bands                         |Number     |                             
+Exponential Moving Average              |Number     |                             
+Linearly Weighted Moving Average        |Number     |                             
+Moving Average Convergence Divergence   |Number     |                             
+On Balance Volume                       |Object     |{price:Number, volume:Number}                             
+Relative Strength Index                 |Number     |                             
+Simple Moving Average                   |Number     |                             
+Stochastic Oscillator                   |Number     |                             
 
 
-### Collection item
+### Result collection item
+
+---
 
 Each item in the result collection contains several object properties. See the list below which properties belongs to the particular indicator. All values are numbers except where noted.
 
@@ -71,7 +99,7 @@ Average True Range                      |{tr, atr}
 Bollinger Bands                         |{upper:Array, middle:Array, lower:Array, price:Array}  
 Exponential Moving Average              |{price, ema}                           
 Linearly Weighted Moving Average        |{price, lmwa}	                       
-Moving Average Convergence Divergence   |{slow_ema:Array, fast_ema:Array, signal_ema:Array, macd, prices:Array} 
+Moving Average Convergence Divergence   |{slow_ema:Array, fast_ema:Array, signal_ema:Array, macd:Array, prices:Array} 
 On Balance Volume                       |{price, obv}                           
 Relative Strength Index                 |{price, gain, loss, avg_gain, avg_loss, rs, rsi}   
 Simple Moving Average                   |{price, sma}                           
@@ -79,19 +107,21 @@ Stochastic Oscillator                   |{k,v, price}
 
 ### Indicator options
 
+---
+
 To configure the indicator with different settings, you can pass an optional configuration object into the indicator constructor. 
 
 Indicator								|Option properties									
 ----------------------------------------|-------------------------------------------
-Average True Range                      |periods, startIndex, endIndex				
-Bollinger Bands                         |periods, startIndex, endIndex, sliceOffset				
-Exponential Moving Average              |periods, startIndex, endIndex, sliceOffset	, emaResultsOnly, startWithFirst		
-Linearly Weighted Moving Average        |periods, startIndex, endIndex, sliceOffset				
-Moving Average Convergence Divergence   |fastPeriods, slowPeriods, signalPeriods, sliceOffset	
-On Balance Volume                       |startIndex, endIndex						
-Relative Strength Index                 |periods, startIndex, endIndex, sliceOffset					
-Simple Moving Average                   |periods, startIndex, endIndex, sliceOffset				
-Stochastic Oscillator                   |periods, startIndex, endIndex, smaPeriods, sliceOffset 	
+Average True Range                      |periods, startIndex, endIndex, lazyEvaluation, maxTickDuration				
+Bollinger Bands                         |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration				
+Exponential Moving Average              |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration, emaResultsOnly, startWithFirst		
+Linearly Weighted Moving Average        |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration				
+Moving Average Convergence Divergence   |fastPeriods, slowPeriods, signalPeriods, sliceOffset, lazyEvaluation, maxTickDuration	
+On Balance Volume                       |startIndex, endIndex, lazyEvaluation, maxTickDuration						
+Relative Strength Index                 |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration					
+Simple Moving Average                   |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration				
+Stochastic Oscillator                   |periods, startIndex, endIndex, smaPeriods, sliceOffset, lazyEvaluation, maxTickDuration 	
 
 See the table below for a description of the particular option property
 
@@ -105,16 +135,22 @@ fastPeriods         |Number     |The time periods for the fast moving average
 slowPeriods         |Number     |The time periods for the slow moving average
 signalPeriods       |Number     |The time periods for the signal average
 smaPeriods          |Number     |The time periods for the simple moving average
-
+lazyEvaluation      |Boolean    |Do the computation of passed values in an asynchronous fashion
+maxTickDuration     |Number     |The computation tick duration in milliseconds. If the computation is not completed, it will be continued in the tick of the next event loop.
 
 ## Run Tests
 
 ---
+
 All tests are inside `test` folder
 
 Run tests:
 
     $ npm test
+
+Run code coverage report:
+
+    $ npm run coverage    
 	
 ## License
 	
