@@ -30,4 +30,13 @@ describe('Rate Of Change', () => {
         })();
     });
 
+    it('should calculate correctly in range and return results', () => {
+        (async () => {
+            let dataCopy = [...data];
+            dataCopy.unshift(3);
+            dataCopy.push(4);
+            runTest( dataCopy, expectedResults,  {periods: 4, startIndex: 1, endIndex: dataCopy.length - 2, sliceOffset: false} );
+        })();
+    });
+    
 });
