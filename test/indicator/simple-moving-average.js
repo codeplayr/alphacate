@@ -27,8 +27,8 @@ describe('SMA', function(){
         };
 
         let arr = [
-            {o: {periods: 4, lazyEvaluation: true}, v:data, e: [2.5, 3.5, 4.5, 5.5, 6.5, 7.5], ep: [4,5,6,7,8,9] },
-            {o: {periods: 9}, v:data, e: [5], ep: [9] },
+            {o: {periods: 4, sliceOffset: true, lazyEvaluation: true}, v:data, e: [2.5, 3.5, 4.5, 5.5, 6.5, 7.5], ep: [4,5,6,7,8,9] },
+            {o: {periods: 9, sliceOffset: true}, v:data, e: [5], ep: [9] },
             {o: {periods: 4, sliceOffset: false}, v:data, e: [0, 0, 0, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5], ep:[1,2,3,4,5,6,7,8,9] },
         ];
 
@@ -73,7 +73,7 @@ describe('SMA', function(){
 		}
 
 		(async function(){
-			let opts = { periods: 4, startIndex: 1, endIndex: data.length - 2, lazyEvaluation: true };
+			let opts = { periods: 4, startIndex: 1, endIndex: data.length - 2, lazyEvaluation: true, sliceOffset: true };
 			let expectedResult =  [3.5, 4.5, 5.5, 6.5];
 
             await runTest( opts, data, expectedResult );
@@ -96,7 +96,7 @@ describe('SMA', function(){
 
 	it('should throw error on invalid periods', () => {
 		function runTest( periods ){
-			let sma = new SMA( { periods } );
+			let sma = new SMA( { periods, sliceOffset: true } );
 			sma.setValues( data );
 			assert.throws( () => sma.calculate(), Error );
 		}
@@ -107,7 +107,7 @@ describe('SMA', function(){
 
 	it('should throw error on invalid startIndex and endIndex ', () => {
 		function runTest( startIndex, endIndex ){
-			let sma = new SMA( {startIndex, endIndex, lazyEvaluation: false} );
+			let sma = new SMA( {startIndex, endIndex, lazyEvaluation: false, sliceOffset: true} );
 			sma.setValues(data);
 			assert.throws( () => sma.calculate(), Error );
 		};

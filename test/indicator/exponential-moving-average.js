@@ -144,7 +144,7 @@ describe('EMA', function(){
 
 	it('should calculate correctly and return results', ( done ) => {
 		(async () => {
-			let ema = new EMA( {periods: data.periods, lazyEvaluation: true} );
+			let ema = new EMA( {periods: data.periods, lazyEvaluation: true, sliceOffset: true } );
 			ema.setValues( data.items );
 			let results = await ema.calculate();
 			assert.isArray( results );
@@ -156,7 +156,7 @@ describe('EMA', function(){
 
 	it('should calculate correctly when started with first item and return results', (done) => {
 		(async () => {
-			let ema = new EMA( {periods: data_2.periods, startWithFirst: true, lazyEvaluation: true } );
+			let ema = new EMA( {periods: data_2.periods, startWithFirst: true, lazyEvaluation: true, sliceOffset: true } );
 			ema.setValues( data_2.items );
 			let results = await ema.calculate();
 			assert.isArray( results );
@@ -170,7 +170,7 @@ describe('EMA', function(){
 
 	it('should calculate correctly with range and return results', (done) => {
 		(async () => {
-			let ema = new EMA( {periods: data_3.periods } );
+			let ema = new EMA( {periods: data_3.periods, sliceOffset: true } );
 			ema.setValues( data_3.items );
 			let results = await ema.calculate();
 			assert.isArray( results );

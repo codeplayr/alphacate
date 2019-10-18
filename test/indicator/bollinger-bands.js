@@ -11,7 +11,7 @@ describe('Boilinger Bands', function(){
 	
 	it('should calculate correctly and return result', () => {
 		let runTest = async ( periods, values, expectedResult ) => {
-			let opts = { periods, lazyEvaluation: true };
+			let opts = { periods, lazyEvaluation: true, sliceOffset: true };
 			let bb = new BB( opts );
 			bb.setValues( values );
 			let results = await bb.calculate();

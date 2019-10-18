@@ -43,7 +43,7 @@ describe('Lineary wighted moving average', () =>{
 
     it('should calculate correctly and return results', () => {
         (async () => {
-            let opts = {periods: periods, lazyEvaluation: true};
+            let opts = {periods: periods, lazyEvaluation: true, sliceOffset: true};
             let r = await runTest( opts, data );
             assertResults(r , expectedResults);
         })();
@@ -54,7 +54,7 @@ describe('Lineary wighted moving average', () =>{
             let clonedData = [ ...data ];
             clonedData.unshift(5);
             clonedData.push(20);
-            let opts = {periods: 4, startIndex: 1, endIndex: clonedData.length - 2, lazyEvaluation: true};
+            let opts = {periods: 4, sliceOffset: true, startIndex: 1, endIndex: clonedData.length - 2, lazyEvaluation: true};
             let r = await runTest( opts, clonedData )
             assertResults( r, expectedResults);
         })();
