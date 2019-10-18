@@ -38,5 +38,12 @@ describe('Rate Of Change', () => {
             runTest( dataCopy, expectedResults,  {periods: 4, startIndex: 1, endIndex: dataCopy.length - 2, sliceOffset: false} );
         })();
     });
-    
+
+    it('should calculate correctly with sliceOffset and return results', () => {
+        let e = expectedResults.slice( 4 );
+        (async () => {
+            runTest( data, e, {periods: 4, sliceOffset: true} );
+        })();
+    });       
+
 });
