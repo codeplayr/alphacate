@@ -1,6 +1,6 @@
 {
 	"name": "alphacate",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "Toolkit for the technical stock analysis",
 	"main": "index.js",
 	"scripts": {
