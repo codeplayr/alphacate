@@ -9,6 +9,7 @@ const OBV = require('./lib/indicator/on-balance-volume');
 const RSI = require('./lib/indicator/relative-strength-index');
 const SMA = require('./lib/indicator/simple-moving-average');
 const SO = require('./lib/indicator/stochastic-oscillator');
+const ROC = require('./lib/indicator/rate-of-change')
 
 module.exports = {
 	AverageTrueRange: ATR,
@@ -29,4 +30,6 @@ module.exports = {
 	SMA,
 	StochasticOscillator: SO,
 	SO,
+	RateOfChange: ROC,
+	ROC,
 }
