@@ -58,5 +58,35 @@ describe('On Balance Volume', function(){
 		})();
 
 	});
+	
+	it('should calculate correctly within range and return result', () => {
+		( async () => {
+			let opts = {startIndex: 2, endIndex: data.length - 2, lazyEvaluation: true};
+			let obv = new OBV( opts );
+
+			let collection = data.map( (item) => {
+				return { price: item[0], volume: item[1] };
+			});
+
+			obv.setValues( collection );
+			let result = await obv.calculate();
+
+			let exptedResult = [
+				0,
+				-32000,
+				-55000,
+				-15000,
+				21000,
+				21000,
+				44000,
+			];
+
+			assert.isArray( result );
+			assert.isTrue( result.length == exptedResult.length );
+			exptedResult.forEach( (expectedValue, idx) => {
+				assert.closeTo( result[idx].obv, expectedValue, 100 );
+			});
+		})();
+	});
 
 });
