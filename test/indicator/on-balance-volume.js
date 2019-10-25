@@ -89,4 +89,41 @@ describe('On Balance Volume', function(){
 		})();
 	});
 
+	it('should throw error on invalid options', () => {
+		let runTest = async ( opts ) => {
+			let obv = new OBV( opts );
+
+			let collection = data.map( (item) => {
+				return { price: item[0], volume: item[1] };
+			});
+
+			let failed = false;
+			try{
+				obv.setValues( collection );
+				let r = await obv.calculate();
+			}
+			catch( err ){
+				if( err.name == 'Error' ){
+					failed = true;
+				}
+			}
+			assert.isTrue( failed );
+		};
+
+		let arr = [
+			{ startIndex: data.length + 1, lazyEvaluation: true },
+			{ endIndex: data.length + 1, lazyEvaluation: true },
+			{ startIndex: data.length, endIndex: 0, lazyEvaluation: true },
+		];
+
+		for( let i=0; i<arr.length; i++ ){
+			runTest( arr[i ] );
+		}
+	});
+
+	it('should throw error on invalid values', () => {
+		assert.throws( () => (new OBV()).setValues( [{'price': 1, 'foo': 10}] ), Error );
+		assert.throws( () => (new OBV()).setValues( [{'volume': 1, 'foo': 10}] ), Error );
+	});
+	
 });
