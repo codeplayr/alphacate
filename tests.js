@@ -10,3 +10,4 @@ require('./test/indicator/bollinger-bands');
 require('./test/indicator/average-true-range');
 require('./test/indicator/rate-of-change');
 require('./test/indicator/on-balance-volume');
+require('./test/indicator/stochastic-oscillator');
