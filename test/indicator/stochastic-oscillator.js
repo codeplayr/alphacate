@@ -27,5 +27,44 @@ describe('Stochastic Oscilator', () => {
 			runTest( item[0], item[1], item[2], item[3] );
 		});
 	});
-	
+
+	it('should calculate correctly and return results', () => {
+		let data = [ 3,5,1,8,7,2,6,3,2,3 ];
+
+		let expectedResults_1 = [
+			{ k: 85.7, d:0,	price: 7 },
+			{ k: 14.3, d:0,	price: 2 },
+			{ k: 71.4, d:0,	price: 6 },
+			{ k: 16.7, d:0,	price: 3 },
+			{ k: 0,	   d:34.1, price: 2 },
+			{ k: 25.0, d:29.3, price: 3 },
+		];
+
+		let runTest = async ( options, data, expectedResults) => {
+			let so = new SO( options );
+			so.setValues( data );
+			let results = await so.calculate();
+
+			assert.isArray( results );
+			assert.isTrue( results.length == expectedResults.length );
+
+			results.forEach( (item, idx) => {
+				assert.isObject( item );
+				assert.closeTo( item.k, expectedResults[idx].k, 0.1 );
+				assert.closeTo( item.d, expectedResults[idx].d, 0.1 );
+				assert.isTrue( item.price == expectedResults[idx].price );
+			});
+		}
+
+		let tests = [
+			{o: {periods: 4, sliceOffset: true, lazyEvaluation: true}, d: data, e: expectedResults_1 },
+		];
+
+		for(let i=0; i<tests.length; i++){
+			let item = tests[ i ];
+			runTest( item.o, item.d, item.e );
+		}
+
+	});
+
 });
