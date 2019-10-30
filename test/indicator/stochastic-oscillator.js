@@ -40,6 +40,10 @@ describe('Stochastic Oscilator', () => {
 			{ k: 25.0, d:29.3, price: 3 },
 		];
 
+		let expectedResults_2 = [
+			{ k: 25, d: 0, price: 3 }
+		];		
+
 		let runTest = async ( options, data, expectedResults) => {
 			let so = new SO( options );
 			so.setValues( data );
@@ -58,6 +62,7 @@ describe('Stochastic Oscilator', () => {
 
 		let tests = [
 			{o: {periods: 4, sliceOffset: true, lazyEvaluation: true}, d: data, e: expectedResults_1 },
+			{o: {periods:4, sliceOffset: true, startIndex: 5, lazyEvaluation: true } , d: data, e: expectedResults_2} ,
 		];
 
 		for(let i=0; i<tests.length; i++){
