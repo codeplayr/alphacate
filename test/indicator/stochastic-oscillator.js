@@ -80,4 +80,27 @@ describe('Stochastic Oscilator', () => {
 
 	});
 
+	it('should throw error on invalid options', () => {
+		let data = [ 3,5,1,8,7,2,6,3,2 ];
+
+		function runTest( opts ){
+			opts = Object.assign( {}, opts, {lazyEvaluation: false} );
+			let so = new SO( opts);
+			so.setValues( data );
+			assert.throws( () => so.calculate(), Error );
+		};
+
+		[
+			{ periods: data.length + 1 },
+			{ startIndex: data.length + 1 },
+			{ startIndex: 1, periods: data.length },
+			{ endIndex: data.length + 1 },
+			{ periods: 'foo' },
+			{ startIndex: data.length, endIndex: 0 },
+			{ startIndex: 1, periods: 10 },
+			{ startIndex: 1, endIndex: 2 },
+		].forEach( ( item ) => runTest( item )  );
+
+	});
+		
 });
