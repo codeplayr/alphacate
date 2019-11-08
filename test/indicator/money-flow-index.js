@@ -69,4 +69,24 @@ describe('Money Flow Index', () => {
 
     });
 
+    it('should calculate correctly with options and return results', () => {
+        let dataCopy = [...data];
+        dataCopy.unshift(  [0.64, 0.62, 0.63, 1000 ] );
+        dataCopy.push(  [0.64, 0.62, 0.63, 1000 ] );
+
+        (async () => {
+            let opts = { sliceOffset: true, startIndex: 1, endIndex: dataCopy.length - 2 };
+            let mfi = new MFI( opts );
+            mfi.setValues( convertArrayToCollection( dataCopy ) );
+            let results = await mfi.calculate();
+
+            assert.isTrue( results.length == expectedResults.length );
+            for( let i=0;i<results.length; i++){
+               let {moneyFlowRatio, moneyFlowIndex } = results[ i ];   
+               assert.closeTo( moneyFlowRatio, expectedResults[ i ][ 0 ], 0.02 );
+               assert.closeTo( moneyFlowIndex, expectedResults[ i ][ 1 ], 0.1 );
+            }
+        })(); 
+    });
+
 });
