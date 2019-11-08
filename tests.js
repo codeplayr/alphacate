@@ -12,3 +12,4 @@ require('./test/indicator/rate-of-change');
 require('./test/indicator/on-balance-volume');
 require('./test/indicator/stochastic-oscillator');
 require('./test/indicator/moving-average-convergence-divergence');
+require('./test/indicator/money-flow-index');
