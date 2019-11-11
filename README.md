@@ -36,10 +36,11 @@ let run = async () => {
         //an error will be throw if passed data serie or options are invalid
         let lwmaResultCollection = await lwma.calculate();
         let bbResultCollection = await bb.calculate();
-
-		for(let i=0, len=lwmaCollection.length; i<len; i++){
-			console.log(`Price: ${lwmaCollection[i].price}, LWMA: ${lwmaCollection[i].lwma}, BB Upper: ${bbCollection[i].upper}`);
-		}
+        
+        for(let i=0, len=lwmaCollection.length; i<len; i++){
+            console.log(`Price: ${lwmaCollection[i].price}, LWMA: ${lwmaCollection[i].lwma}, BB Upper: ${bbCollection[i].upper}`);
+        }
+        
     }
     catch( err ){
         console.log(err.message);
