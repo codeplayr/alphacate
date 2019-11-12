@@ -40,7 +40,7 @@ let run = async () => {
         for(let i=0, len=lwmaCollection.length; i<len; i++){
             console.log(`Price: ${lwmaCollection[i].price}, LWMA: ${lwmaCollection[i].lwma}, BB Upper: ${bbCollection[i].upper}`);
         }
-        
+
     }
     catch( err ){
         console.log(err.message);
@@ -65,6 +65,7 @@ Average True Range                      |AverageTrueRange                   |ATR
 Bollinger Bands                         |BollingerBands                     |BB                 
 Exponential Moving Average              |ExponentialMovingAverage           |EMA                
 Linearly Weighted Moving Average        |LinearlyWeightedMovingAverage      |LWMA               
+Money Flow Index                        |MoneyFlowIndex                     |MFI
 Moving Average Convergence Divergence   |MovingAverageConvergenceDivergence |MACD               
 On Balance Volume                       |OnBalanceVolume                    |OBV                
 Rate Of Change                          |RateOfChange                       |ROC
@@ -83,7 +84,8 @@ Indicator								|Type       |Usage
 Average True Range                      |Number     |                             
 Bollinger Bands                         |Number     |                             
 Exponential Moving Average              |Number     |                             
-Linearly Weighted Moving Average        |Number     |                             
+Linearly Weighted Moving Average        |Number     | 
+Money Flow Index                        |Object     |{high:Number, low:Number, close:Number, volume:Number };                            
 Moving Average Convergence Divergence   |Number     |                             
 On Balance Volume                       |Object     |{price:Number, volume:Number}  
 Rate Of Change                          |Number     |                           
@@ -123,7 +125,8 @@ Indicator								|Option properties
 Average True Range                      |periods, startIndex, endIndex, lazyEvaluation, maxTickDuration				
 Bollinger Bands                         |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration				
 Exponential Moving Average              |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration, emaResultsOnly, startWithFirst		
-Linearly Weighted Moving Average        |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration				
+Linearly Weighted Moving Average        |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration		
+Money Flow Index                        |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration		
 Moving Average Convergence Divergence   |fastPeriods, slowPeriods, signalPeriods, sliceOffset, lazyEvaluation, maxTickDuration
 On Balance Volume                       |startIndex, endIndex, lazyEvaluation, maxTickDuration						
 Rate Of Change                          |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration
