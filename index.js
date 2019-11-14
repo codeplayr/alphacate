@@ -10,6 +10,7 @@ const RSI = require('./lib/indicator/relative-strength-index');
 const SMA = require('./lib/indicator/simple-moving-average');
 const SO = require('./lib/indicator/stochastic-oscillator');
 const ROC = require('./lib/indicator/rate-of-change')
+const MFI = require('./lib/indicator/money-flow-index');
 
 module.exports = {
 	AverageTrueRange: ATR,
@@ -22,6 +23,8 @@ module.exports = {
 	LWMA,
 	MovingAverageConvergenceDivergence: MACD,
 	MACD,
+	MoneyFlowIndex: MFI,
+	MFI,
 	OnBalanceVolume: OBV,
 	OBV,
 	RelativeStrengthIndex: RSI,
