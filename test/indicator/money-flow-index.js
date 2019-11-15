@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('chai').assert;
-const _ = require('underscore');
 const MFI = require('./../../lib/indicator/money-flow-index');
 
 describe('Money Flow Index', () => {

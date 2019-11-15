@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('chai').assert;
-const _ = require('underscore');
 const OBV = require('./../../lib/indicator/on-balance-volume');
 
 describe('On Balance Volume', function(){

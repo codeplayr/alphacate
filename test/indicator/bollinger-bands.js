@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('chai').assert;
-const _ = require('underscore');
 const BB = require('./../../lib/indicator/bollinger-bands');
 
 describe('Boilinger Bands', function(){

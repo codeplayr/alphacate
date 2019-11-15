@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('chai').assert;
-const _ = require('underscore');
 const SMA = require('./../../lib/indicator/simple-moving-average');
 
 describe('SMA', function(){

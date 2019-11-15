@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('chai').assert;
-const _ = require('underscore');
 const SO = require('./../../lib/indicator/stochastic-oscillator');
 
 describe('Stochastic Oscilator', () => {

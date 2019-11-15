@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('chai').assert;
-const _ = require('underscore');
 const ATR = require('./../../lib/indicator/average-true-range');
 const Fixture = require('./../fixtures/average-true-range');
 

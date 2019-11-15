@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('chai').assert;
-const _ = require('underscore');
 const LWMA = require('./../../lib/indicator/linearly-weighted-moving-average');
 
 describe('Lineary wighted moving average', () =>{
