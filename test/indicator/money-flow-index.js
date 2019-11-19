@@ -70,8 +70,9 @@ describe('Money Flow Index', () => {
 
     it('should calculate correctly with options and return results', () => {
         let dataCopy = [...data];
-        dataCopy.unshift(  [0.64, 0.62, 0.63, 1000 ] );
-        dataCopy.push(  [0.64, 0.62, 0.63, 1000 ] );
+        let values =  [0.64, 0.62, 0.63, 1000 ];
+        dataCopy.unshift( values  );
+        dataCopy.push( values );
 
         (async () => {
             let opts = { sliceOffset: true, startIndex: 1, endIndex: dataCopy.length - 2 };
