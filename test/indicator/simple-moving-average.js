@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const SMA = require('./../../lib/indicator/simple-moving-average');
 
-describe('SMA', function(){
+describe('Simple Moving Average', function(){
     let data = [1,2,3,4,5,6,7,8,9];
 
 	it('should calculate correctly and return result', ( done ) => {

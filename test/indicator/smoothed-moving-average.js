@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const SMMA = require('./../../lib/indicator/smoothed-moving-average');
 
-describe('SMMA', () => {
+describe('Smoothed Moving Average', () => {
 
     let data = [20, 21, 22, 21, 20, 19, 18, 22, 21, 22, 23, 24 ];
 

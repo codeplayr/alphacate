@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const EMA = require('./../../lib/indicator/exponential-moving-average');
 
-describe('EMA', function(){
+describe('Exponential Moving Average', function(){
 
 	let data = {
 		items: [

@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const RSI = require('./../../lib/indicator/relative-strength-index');
 
-describe('RSI', function(){
+describe('Relative Strength Index', function(){
 
 	let data = [
 		44.34,

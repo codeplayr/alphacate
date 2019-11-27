@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const MACD = require('./../../lib/indicator/moving-average-convergence-divergence');
 
-describe('MACD', () => {
+describe('Moving Average Convergence Divergence', () => {
 
 	let data = [
 		39.92,
