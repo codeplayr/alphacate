@@ -4,7 +4,7 @@ const assert = require('chai').assert;
 const ATR = require('./../../lib/indicator/average-true-range');
 const Fixture = require('./../fixtures/average-true-range');
 
-describe('Average True Range', function(){
+describe('Average True Range', () => {
 
     const data = Fixture.data;
     const expectedResults = Fixture.dataResults;

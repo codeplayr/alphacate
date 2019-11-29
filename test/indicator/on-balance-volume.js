@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const OBV = require('./../../lib/indicator/on-balance-volume');
 
-describe('On Balance Volume', function(){
+describe('On Balance Volume', () => {
 
 	let data = [
 		[ 10, 25200 ],

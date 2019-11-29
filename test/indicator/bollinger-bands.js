@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const BB = require('./../../lib/indicator/bollinger-bands');
 
-describe('Boilinger Bands', function(){
+describe('Boilinger Bands', () => {
 
 	let data = [25.5, 26.75, 27.0, 26.5, 27.25];
 	let data_2 = [25.5, 26.75, 27.0, 26.5, 27.25, 28.1];
