@@ -11,6 +11,7 @@ const SMA = require('./lib/indicator/simple-moving-average');
 const SO = require('./lib/indicator/stochastic-oscillator');
 const ROC = require('./lib/indicator/rate-of-change')
 const MFI = require('./lib/indicator/money-flow-index');
+const SMMA = require('./lib/indicator/smoothed-moving-average');
 
 module.exports = {
 	AverageTrueRange: ATR,
@@ -31,6 +32,8 @@ module.exports = {
 	RSI,
 	SimpleMovingAverage: SMA,
 	SMA,
+	SmoothedMovingAverage: SMMA,
+	SMMA,
 	StochasticOscillator: SO,
 	SO,
 	RateOfChange: ROC,
