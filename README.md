@@ -70,7 +70,8 @@ Moving Average Convergence Divergence   |MovingAverageConvergenceDivergence |MAC
 On Balance Volume                       |OnBalanceVolume                    |OBV                
 Rate Of Change                          |RateOfChange                       |ROC
 Relative Strength Index                 |RelativeStrengthIndex              |RSI                
-Simple Moving Average                   |SimpleMovingAverage                |SMA                
+Simple Moving Average                   |SimpleMovingAverage                |SMA   
+Smoothed Moving Average                 |SmoothedMovingAverage              |SMMA             
 Stochastic Oscillator                   |StochasticOscillator               |SO                 
 
 ### Data serie item
@@ -90,7 +91,8 @@ Moving Average Convergence Divergence   |Number     |
 On Balance Volume                       |Object     |{price:Number, volume:Number}  
 Rate Of Change                          |Number     |                           
 Relative Strength Index                 |Number     |                             
-Simple Moving Average                   |Number     |                             
+Simple Moving Average                   |Number     |
+Smoothed Moving Average                 |Number     |                             
 Stochastic Oscillator                   |Number     |                             
 
 
@@ -111,7 +113,8 @@ Moving Average Convergence Divergence   |{slow_ema:Array, fast_ema:Array, signal
 On Balance Volume                       |{price, obv}                           
 Rate Of Change                          |{price, roc}
 Relative Strength Index                 |{price, gain, loss, avg_gain, avg_loss, rs, rsi}   
-Simple Moving Average                   |{price, sma}                           
+Simple Moving Average                   |{price, sma}  
+Smoothed Moving Average                 |{price, smma}                         
 Stochastic Oscillator                   |{k,v, price}                           
 
 ### Indicator options
@@ -131,7 +134,8 @@ Moving Average Convergence Divergence   |fastPeriods, slowPeriods, signalPeriods
 On Balance Volume                       |startIndex, endIndex, lazyEvaluation, maxTickDuration						
 Rate Of Change                          |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration
 Relative Strength Index                 |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration					
-Simple Moving Average                   |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration				
+Simple Moving Average                   |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration	
+Smoothed Moving Average                 |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration			
 Stochastic Oscillator                   |periods, startIndex, endIndex, smaPeriods, sliceOffset, lazyEvaluation, maxTickDuration 	
 
 See the table below for a description of the particular option property
