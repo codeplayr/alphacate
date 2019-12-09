@@ -86,9 +86,9 @@ Average True Range                      |Number     |
 Bollinger Bands                         |Number     |                             
 Exponential Moving Average              |Number     |                             
 Linearly Weighted Moving Average        |Number     | 
-Money Flow Index                        |Object     |{high:Number, low:Number, close:Number, volume:Number };                            
+Money Flow Index                        |Object     |{high:<Number>, low:<Number>, close:<Number>, volume:<Number> };                            
 Moving Average Convergence Divergence   |Number     |                             
-On Balance Volume                       |Object     |{price:Number, volume:Number}  
+On Balance Volume                       |Object     |{price:<Number>, volume:<Number>}  
 Rate Of Change                          |Number     |                           
 Relative Strength Index                 |Number     |                             
 Simple Moving Average                   |Number     |
@@ -106,10 +106,10 @@ Each item in the result collection contains several object properties. See the l
 Indicator								|Collection Item properties
 ----------------------------------------|--------------------------------------------------
 Average True Range                      |{tr, atr}                              
-Bollinger Bands                         |{upper:Array, middle:Array, lower:Array, price:Array}  
+Bollinger Bands                         |{upper:<Array>, middle:<Array>, lower:<Array>, price:<Array>}  
 Exponential Moving Average              |{price, ema}                           
 Linearly Weighted Moving Average        |{price, lmwa}	                       
-Moving Average Convergence Divergence   |{slow_ema:Array, fast_ema:Array, signal_ema:Array, macd:Array, prices:Array}
+Moving Average Convergence Divergence   |{slow_ema:<Array>, fast_ema:<Array>, signal_ema:<Array>, macd:<Array>, prices:<Array>}
 On Balance Volume                       |{price, obv}                           
 Rate Of Change                          |{price, roc}
 Relative Strength Index                 |{price, gain, loss, avg_gain, avg_loss, rs, rsi}   
