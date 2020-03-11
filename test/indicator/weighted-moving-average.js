@@ -23,7 +23,10 @@ describe('WMA', () => {
         ( async () => {
             let expectedResults = [90.62, 90.57];
             await runTest( data, expectedResults, {periods: 5, sliceOffset: true} );
-      })();
+     
+            let expectedResults2 = [0,0,0,0].concat(expectedResults);
+            await runTest( data, expectedResults2, {periods: 5, sliceOffset: false} );
+        })();
     });
         
 });   
