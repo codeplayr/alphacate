@@ -12,6 +12,8 @@ describe('WMA', () => {
         let wma = new WMA( options ); 
         wma.setValues( data );
         let results = await wma.calculate();
+        assert.isArray( results );
+        assert.isTrue( results.length == expectedResults.length );        
         results.forEach( (item, idx) => {
             assert.containsAllKeys( item, ['price', 'wma'] );
             assert.closeTo( item.wma, expectedResults[ idx ], 0.02 );
@@ -28,5 +30,4 @@ describe('WMA', () => {
             await runTest( data, expectedResults2, {periods: 5, sliceOffset: false} );
         })();
     });
-        
 });   
