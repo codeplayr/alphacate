@@ -86,9 +86,9 @@ Average True Range                      |Number     |
 Bollinger Bands                         |Number     |                             
 Exponential Moving Average              |Number     |                             
 Linearly Weighted Moving Average        |Number     | 
-Money Flow Index                        |Object     |{high:<Number>, low:<Number>, close:<Number>, volume:<Number> };                            
+Money Flow Index                        |Object     |{high:\<Number\>, low:\<Number\>, close:\<Number\>, volume:\<Number\> };                            
 Moving Average Convergence Divergence   |Number     |                             
-On Balance Volume                       |Object     |{price:<Number>, volume:<Number>}  
+On Balance Volume                       |Object     |{price:\<Number\>, volume:\<Number\>}  
 Rate Of Change                          |Number     |                           
 Relative Strength Index                 |Number     |                             
 Simple Moving Average                   |Number     |
@@ -106,10 +106,10 @@ Each item in the result collection contains several object properties. See the l
 Indicator								|Collection Item properties
 ----------------------------------------|--------------------------------------------------
 Average True Range                      |{tr, atr}                              
-Bollinger Bands                         |{upper:<Array>, middle:<Array>, lower:<Array>, price:<Array>}  
+Bollinger Bands                         |{upper:\<Array\>, middle:\<Array\>, lower:\<Array\>, price:\<Array\>}  
 Exponential Moving Average              |{price, ema}                           
 Linearly Weighted Moving Average        |{price, lmwa}	                       
-Moving Average Convergence Divergence   |{slow_ema:<Array>, fast_ema:<Array>, signal_ema:<Array>, macd:<Array>, prices:<Array>}
+Moving Average Convergence Divergence   |{slow_ema:\<Array\>, fast_ema:\<Array\>, signal_ema:\<Array\>, macd:\<Array\>, prices:\<Array\>}
 On Balance Volume                       |{price, obv}                           
 Rate Of Change                          |{price, roc}
 Relative Strength Index                 |{price, gain, loss, avg_gain, avg_loss, rs, rsi}   
@@ -138,13 +138,13 @@ Simple Moving Average                   |periods, startIndex, endIndex, sliceOff
 Smoothed Moving Average                 |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration			
 Stochastic Oscillator                   |periods, startIndex, endIndex, smaPeriods, sliceOffset, lazyEvaluation, maxTickDuration 	
 
-See the table below for a description of the particular option property
+See the table below for a description of the particular option property.
 
 Option property     |Type       |Description
 --------------------|-----------|------------------------
 periods             |Number     |The time periods to calculate the indicator
-startIndex          |Number     |The index for passed data serie to start the calulation
-endIndex            |Number     |The index for passed data serie to end the calculation
+startIndex          |Number     |The index for the passed data serie to start the calulation
+endIndex            |Number     |The index for the passed data serie to end the calculation
 sliceOffset         |Boolean    |Omit items in result collection used for inital period calculation
 fastPeriods         |Number     |The time periods for the fast moving average
 slowPeriods         |Number     |The time periods for the slow moving average
