@@ -73,6 +73,7 @@ Relative Strength Index                 |RelativeStrengthIndex              |RSI
 Simple Moving Average                   |SimpleMovingAverage                |SMA   
 Smoothed Moving Average                 |SmoothedMovingAverage              |SMMA             
 Stochastic Oscillator                   |StochasticOscillator               |SO                 
+Weighted Moving Average                 |WeightedMovingAverage              |WMA
 
 ### Data serie item
 
@@ -94,7 +95,7 @@ Relative Strength Index                 |Number     |
 Simple Moving Average                   |Number     |
 Smoothed Moving Average                 |Number     |                             
 Stochastic Oscillator                   |Number     |                             
-
+Weighted Moving Average                 |Number     |
 
 ### Result collection item
 
@@ -115,7 +116,8 @@ Rate Of Change                          |{price, roc}
 Relative Strength Index                 |{price, gain, loss, avg_gain, avg_loss, rs, rsi}   
 Simple Moving Average                   |{price, sma}  
 Smoothed Moving Average                 |{price, smma}                         
-Stochastic Oscillator                   |{k,v, price}                           
+Stochastic Oscillator                   |{k,v, price}                          
+Weighted Moving Average                 |{price, wma} 
 
 ### Indicator options
 
@@ -137,6 +139,7 @@ Relative Strength Index                 |periods, startIndex, endIndex, sliceOff
 Simple Moving Average                   |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration	
 Smoothed Moving Average                 |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration			
 Stochastic Oscillator                   |periods, startIndex, endIndex, smaPeriods, sliceOffset, lazyEvaluation, maxTickDuration 	
+Weighted Moving Average                 |periods, startIndex, endIndex, sliceOffset, lazyEvaluation, maxTickDuration
 
 See the table below for a description of the particular option property.
 
