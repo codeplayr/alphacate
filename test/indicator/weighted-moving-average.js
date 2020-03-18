@@ -30,4 +30,37 @@ describe('WMA', () => {
             await runTest( data, expectedResults2, {periods: 5, sliceOffset: false} );
         })();
     });
+
+    it('should calculate correctly with starIndex and endIndex options and return result', ( done ) => {
+        let opts = { periods: 2, startIndex: 1, endIndex: data.length - 2, lazyEvaluation: true, sliceOffset: true };
+
+		let runTest = async (opts, data, expectedResult) => {
+			let sma = new WMA( opts );
+			sma.setValues( data );
+            let results = await sma.calculate();
+
+			assert.isArray( results )
+            assert.isTrue( expectedResult.length == results.length );
+            results.forEach( (item, idx) => {
+				assert.isObject( item );
+				assert.containsAllKeys( item, ['price', 'wma'] );
+				assert.isNumber( item.price );
+				assert.isNumber( item.wma );
+				assert.closeTo( expectedResult[idx].wma, item.wma, 0.1 );
+				assert.isTrue( item.price == data[ opts.startIndex + opts.periods -1 + idx ] );
+			});
+		}
+
+		(async function(){
+			let expectedResult =   [
+                { price: 90.28, wma: 90.46 },
+                { price: 90.36, wma: 90.33 },
+                { price: 90.9, wma: 90.72 } 
+            ];
+            await runTest( opts, data, expectedResult );
+            done();
+        })();
+
+    });
+        
 });   
