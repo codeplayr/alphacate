@@ -31,6 +31,10 @@
 		"bollinger-bands",
 		"on-balance-volume",
 		"relative-strength-index",
+		"weighted-moving-average",
+		"rate-of-change",
+		"money-flow-index",
+		"standard-deviation",
 		"fintech",
 		"financial-technology",
 		"stock",
@@ -38,7 +42,9 @@
 		"technical-analysis",
 		"finance",
 		"invest",
-		"trading"
+		"trading",
+		"indicator",
+		"oscillator"
 	],
 	"repository": {
 		"type": "git",
