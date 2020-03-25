@@ -1,7 +1,7 @@
 {
 	"name": "alphacate",
 	"version": "0.3.0",
-	"description": "Toolkit for the technical stock analysis",
+	"description": "Toolkit with various indicators and oscillators for the technical stock analysis",
 	"main": "index.js",
 	"scripts": {
 		"test": "nyc --reporter=text-summary ./node_modules/mocha/bin/mocha ./tests.js",
@@ -44,7 +44,10 @@
 		"invest",
 		"trading",
 		"indicator",
-		"oscillator"
+		"oscillator",
+		"algorithmic",
+		"nyse",
+		"quant"
 	],
 	"repository": {
 		"type": "git",
