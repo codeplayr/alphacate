@@ -2,7 +2,7 @@
 
 ---
 
-A Node.js toolkit with various indicators and oscillators for the technical stock analysis.
+A Node.js toolkit with various indicators and oscillators for the technical stock analysis. This package contains only the mathematical calculations.
 
 ## Installation
 

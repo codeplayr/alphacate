@@ -1,7 +1,7 @@
 # Alphacate Changelog
 
 
-## 2019.12.x, v 0.4.0
+## v0.4.0
 ***
 
 ### New Features
@@ -12,7 +12,7 @@
 ### Noteable Changes
 - various test improvements
 
-## 2019.11.x, v 0.3.0
+## v0.3.0
 ***
 
 ### New Features

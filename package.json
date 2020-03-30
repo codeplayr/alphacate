@@ -16,10 +16,10 @@
 		"convert-hrtime": "3.x"
 	},
 	"devDependencies": {
-		"mocha": "4.1.x",
+		"mocha": "6.2.x",
 		"chai": "4.0.x",
 		"chai-fs": "1.0.x",
-		"nyc": "14.1.x"
+		"nyc": "15.0.x"
 	},
 	"keywords": [
 		"average-true-range",
