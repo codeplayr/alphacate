@@ -35,6 +35,61 @@ describe('Accumulation Distribution Line', () => {
 		[65.34,	64.07,	64.77,	10192  ],
 		[66.48,	65.20,	65.22,	10074  ],
 		[65.23,	63.21,	63.28,	9412   ],
+	];
+	
+    let expectedResults = [
+        4774,
+        -4855,
+        -12019,
+        -18249,
+        -21006,
+        -39976,
+        -48785,
+        -52785,
+        -47317,
+        -48561,
+        -47216,
+        -49574,
+        -49866,
+        -49354,
+        -47389,
+        -50907,
+        -48813,
+        -32474,
+        -25128,
+        -27144,
+        -18028,
+        -20193,
+        -18000,
+        -33099,
+        -32056,
+        -41816,
+        -50575,
     ];
     
+    let runTest = async ( data, expectedResults, options = {} ) => {
+        let adl = new ADL( options );
+        adl.setValues( data );
+        let results = await adl.calculate();
+
+        assert.isArray( results );
+        assert.isTrue( results.length == expectedResults.length );
+
+        results.forEach( (resultItem, idx) => {
+            assert.closeTo( resultItem.adl, expectedResults[ idx ], 50  );
+        });
+	};
+	
+    let convertArrayToCollection = ( data ) => {
+        return data.map( item => { 
+            return {high: item[0], low: item[1], close: item[2], volume: item[3] };
+        });
+    };
+
+    it('should calculate correctly and return result', () => {
+        let d = convertArrayToCollection( data );   
+        (async () =>{
+            await runTest( d, expectedResults );
+        })();
+    });
 });
