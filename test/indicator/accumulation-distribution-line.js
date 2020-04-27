@@ -92,4 +92,17 @@ describe('Accumulation Distribution Line', () => {
             await runTest( d, expectedResults );
         })();
     });
+
+    it('should calculate correctly with range and return result', () => {
+        let dataCopy = [...data];
+        dataCopy.unshift( [63.73,	62.26,	62.89,	15008 ]);
+        dataCopy.push( [63.73,	62.26,	62.89,	15008 ] )
+        let d = convertArrayToCollection( dataCopy );   
+        
+        (async () =>{
+            let opts = { startIndex: 1, endIndex: d.length - 2 }; 
+            await runTest( d, expectedResults, opts );
+        })();
+    });
+      
 });
