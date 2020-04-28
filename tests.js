@@ -14,3 +14,4 @@ require('./test/indicator/stochastic-oscillator');
 require('./test/indicator/moving-average-convergence-divergence');
 require('./test/indicator/money-flow-index');
 require('./test/indicator/weighted-moving-average');
+require('./test/indicator/accumulation-distribution-line');
